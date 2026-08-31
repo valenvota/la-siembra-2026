@@ -37,9 +37,7 @@ export function Nav() {
     <header className="nav">
       <div className="wrap nav-in">
         <a className="brand" href="#top" onClick={(e) => { e.preventDefault(); scrollTo({ top: 0, behavior: "smooth" }); }}>
-          <img className="brand-iso" src="/assets/brand/isotipo.png" alt="" aria-hidden="true" />
-          <span>La <b>Siembra</b></span>
-          <span className="brand-year">2026</span>
+          <img className="brand-logo" src="/assets/brand/logo-siembra-2026.png" alt="Siembra · Edición 2026" />
         </a>
 
         <nav className="quick" aria-label="Accesos rápidos">

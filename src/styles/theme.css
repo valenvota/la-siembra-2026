@@ -1,13 +1,16 @@
 /* ============================================================
    La Siembra 2026 — sistema visual
-   Verde = La Siembra/naturaleza · Azul (#307FE2) = Hölters/institucional
+   Verde = La Siembra/naturaleza · Azul (#004AAD) = Hölters/institucional (color principal)
    Papel + tinta = base editorial · Amarillo = alegría puntual · Rojo = SOLO en vivo
+   Escala azul Hölters: claros E5F1FF / CCE2FF / 99C5FF · principal 004AAD · oscuros 004299 / 002C66 / 001633
    ============================================================ */
 :root{
   --paper:#F1EDE0; --paper-2:#FBF8EF; --paper-3:#E9E6D6;
   --ink:#23261D; --ink-soft:#4A4C40; --quiet:#6C6B5B; --line:#D9D3C1;
   --green:#34623F; --green-deep:#264B30; --green-soft:#DCE6D2;
-  --blue:#307FE2; --blue-deep:#1E5FB0; --blue-soft:#DCE8FA;
+  /* Azul institucional Hölters */
+  --blue:#004AAD; --blue-deep:#004299; --blue-darker:#002C66; --blue-darkest:#001633;
+  --blue-200:#99C5FF; --blue-soft:#CCE2FF; --blue-pale:#E5F1FF;
   --yellow:#E3A63C; --live:#D93A29; --white:#ffffff;
 
   --font-display:"Bricolage Grotesque","Hanken Grotesk",system-ui,sans-serif;
@@ -25,7 +28,8 @@
     --paper:#191C15; --paper-2:#22261C; --paper-3:#2C3123;
     --ink:#EFEBDD; --ink-soft:#CFCBBD; --quiet:#A9A695; --line:#3A3E30;
     --green:#8FBF95; --green-deep:#6E9E75; --green-soft:#2C3826;
-    --blue:#6BA6F0; --blue-deep:#4E8BE0; --blue-soft:#1E2A3A;
+    --blue:#5B9BFF; --blue-deep:#99C5FF; --blue-darker:#CCE2FF; --blue-darkest:#E5F1FF;
+    --blue-200:#3A6FB5; --blue-soft:#12305C; --blue-pale:#0E2444;
     --yellow:#EEBB5A; --live:#F0664F;
   }
 }
@@ -33,7 +37,8 @@
   --paper:#191C15; --paper-2:#22261C; --paper-3:#2C3123;
   --ink:#EFEBDD; --ink-soft:#CFCBBD; --quiet:#A9A695; --line:#3A3E30;
   --green:#8FBF95; --green-deep:#6E9E75; --green-soft:#2C3826;
-  --blue:#6BA6F0; --blue-deep:#4E8BE0; --blue-soft:#1E2A3A;
+  --blue:#5B9BFF; --blue-deep:#99C5FF; --blue-darker:#CCE2FF; --blue-darkest:#E5F1FF;
+  --blue-200:#3A6FB5; --blue-soft:#12305C; --blue-pale:#0E2444;
   --yellow:#EEBB5A; --live:#F0664F;
 }
 

@@ -90,7 +90,7 @@ export function Streaming() {
               ? "Sumate a la transmisión y acompañá La Siembra estés donde estés."
               : `Familias y amigos pueden acompañar a distancia. Próxima transmisión: ${s.nextLabel}.`}
           </p>
-          <a className={`btn ${live ? "btn-live" : "btn-primary"}`} href={s.url} target="_blank" rel="noreferrer">
+          <a className={`btn ${live ? "btn-live" : "btn-inst"}`} href={s.url} target="_blank" rel="noreferrer">
             {live ? <><span className="dot live-dot" style={{ background: "#fff" }} /> Estamos en vivo</> : "Ver transmisión en vivo"}
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M7 17 17 7M9 7h8v8" /></svg>
           </a>
@@ -150,6 +150,9 @@ export function Colaboradores() {
           </figure>
           <div className="cs-body">
             <p className="eyebrow inst">Colaboradores · Invitados 2026</p>
+            {partner.logo && (
+              <img className="cs-logo" src={partner.logo} alt={`Escudo del ${partner.name}`} loading="lazy" />
+            )}
             <h3 className="cs-name">{partner.name}</h3>
             <p className="cs-desc serif">
               {[partner.city, partner.country].filter(Boolean).join(", ")}. {partner.blurb}
@@ -218,12 +221,11 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <div className="wrap footer-in">
-        <img className="footer-iso" src="/assets/brand/isotipo.png" alt="La Siembra" loading="lazy" />
         <div className="footer-copy">
           <div className="footer-brand">
-            <span>La <b>Siembra</b> 2026</span>
+            <img className="footer-logo" src="/assets/brand/logo-siembra-2026.png" alt="Siembra · Edición 2026" loading="lazy" />
             <span className="footer-x" aria-hidden="true">×</span>
-            <HoltersShield size={26} />
+            <HoltersShield size={28} />
             <span className="footer-holters">Hölters Natur</span>
           </div>
           <p className="footer-line serif">{data.event.tagline}</p>

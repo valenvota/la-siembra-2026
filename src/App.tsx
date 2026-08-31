@@ -27,6 +27,8 @@ export function App() {
         ) : (
           <>
             <HeroDurante />
+            {/* ROADMAP (no prioritario): en modo Durante, ubicar <Streaming /> (transmisión de
+                YouTube) inmediatamente acá, debajo del hero. Hoy vive más abajo (línea ~33). */}
             <AhoraProximo />
             <PlanoVivo />
             <Programa />

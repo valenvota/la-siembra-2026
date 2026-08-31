@@ -1,5 +1,5 @@
 import type { Activity } from "../data/types";
-import { CATEGORY_LABEL, LEVEL_LABEL } from "../data/types";
+import { LEVEL_LABEL } from "../data/types";
 import { useApp, areaById } from "../lib/app";
 import { activityStatus, statusLabel, timeRange, dayLabel } from "../lib/time";
 
@@ -36,7 +36,6 @@ export function ActivityCard({
         ) : (
           <span className="act-time">{timeRange(activity)}</span>
         )}
-        <span className="act-cat">{CATEGORY_LABEL[activity.category]}</span>
       </div>
 
       <h4 className="act-name">{activity.name}</h4>

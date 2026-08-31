@@ -6,6 +6,13 @@ import type { SiembraData } from "./types";
  * numerado de Hölters (Ref · Lugar · Actividad · Nivel). Los números de referencia,
  * nombres de sedes y actividades son PROVISIONALES hasta reconciliar con datos 2026.
  * Cambiar acá, nunca en los componentes.
+ *
+ * ROADMAP (no prioritario) — Google Sheets como base de datos del cronograma:
+ * la idea es que `data.activities` (y `areas`) se hidrate desde una hoja de Google para
+ * que el equipo del colegio actualice el programa sin tocar código. Camino sugerido:
+ * publicar la hoja como CSV/JSON (o Apps Script / Sheets API v4), mapear filas → Activity
+ * en un loader async (mismo shape que este seed) y cachear. Mantener este archivo como
+ * fallback/estructura canónica. No implementar hasta confirmar la hoja fuente.
  */
 
 export const data: SiembraData = {
@@ -80,6 +87,8 @@ export const data: SiembraData = {
       city: "Bogotá",
       blurb: "Viajan para bailar con nosotros y compartir una semana de aula abierta.",
       activityId: "a11",
+      // Escudo oficial del colegio (Colegio San Pío X · Bogotá).
+      logo: "/assets/media/colpiox-escudo.png",
       // Retrato temporal (placeholder) — reemplazar por la foto real del contingente.
       portrait: "/assets/media/sanpio.jpg",
     },
