@@ -1,0 +1,117 @@
+/* ============================================================
+   La Siembra 2026 — sistema visual
+   Verde = La Siembra/naturaleza · Azul (#307FE2) = Hölters/institucional
+   Papel + tinta = base editorial · Amarillo = alegría puntual · Rojo = SOLO en vivo
+   ============================================================ */
+:root{
+  --paper:#F1EDE0; --paper-2:#FBF8EF; --paper-3:#E9E6D6;
+  --ink:#23261D; --ink-soft:#4A4C40; --quiet:#6C6B5B; --line:#D9D3C1;
+  --green:#34623F; --green-deep:#264B30; --green-soft:#DCE6D2;
+  --blue:#307FE2; --blue-deep:#1E5FB0; --blue-soft:#DCE8FA;
+  --yellow:#E3A63C; --live:#D93A29; --white:#ffffff;
+
+  --font-display:"Bricolage Grotesque","Hanken Grotesk",system-ui,sans-serif;
+  --font-serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --font-body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+
+  --ease-siembra:cubic-bezier(.2,.8,.2,1);
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --maxw:1200px;
+  --nav-h:72px;
+  --radius:16px; --radius-sm:11px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#191C15; --paper-2:#22261C; --paper-3:#2C3123;
+    --ink:#EFEBDD; --ink-soft:#CFCBBD; --quiet:#A9A695; --line:#3A3E30;
+    --green:#8FBF95; --green-deep:#6E9E75; --green-soft:#2C3826;
+    --blue:#6BA6F0; --blue-deep:#4E8BE0; --blue-soft:#1E2A3A;
+    --yellow:#EEBB5A; --live:#F0664F;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#191C15; --paper-2:#22261C; --paper-3:#2C3123;
+  --ink:#EFEBDD; --ink-soft:#CFCBBD; --quiet:#A9A695; --line:#3A3E30;
+  --green:#8FBF95; --green-deep:#6E9E75; --green-soft:#2C3826;
+  --blue:#6BA6F0; --blue-deep:#4E8BE0; --blue-soft:#1E2A3A;
+  --yellow:#EEBB5A; --live:#F0664F;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:calc(var(--nav-h) + 18px)}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--font-body); font-size:17px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4{margin:0; font-weight:800; text-wrap:balance; letter-spacing:-.02em}
+p{margin:0}
+img{max-width:100%; display:block}
+a{color:var(--green-deep); text-underline-offset:3px}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--blue); outline-offset:2px; border-radius:6px}
+
+/* grano de papel — textura sutil de "materia impresa" (Superlocal) */
+body::after{content:""; position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.4;
+  mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")}
+
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 clamp(18px,4vw,40px)}
+
+/* ---------- typographic primitives ---------- */
+.display{font-family:var(--font-display); font-weight:800; line-height:.94; letter-spacing:-.035em}
+.serif{font-family:var(--font-serif)}
+.eyebrow{font-weight:700; font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--green-deep)}
+.eyebrow.inst{color:var(--blue-deep)}
+.sec-h{font-family:var(--font-display); font-size:clamp(27px,4.4vw,44px); line-height:1.0; letter-spacing:-.025em}
+.lead{font-family:var(--font-serif); font-size:clamp(19px,2.3vw,24px); line-height:1.45; color:var(--ink-soft); max-width:60ch}
+.muted{color:var(--quiet)}
+
+/* ---------- pills / tags / buttons ---------- */
+.btn{display:inline-flex; align-items:center; gap:9px; font-weight:700; font-size:15px;
+  border:1px solid var(--line); background:var(--paper-2); color:var(--ink);
+  border-radius:999px; padding:13px 22px; cursor:pointer; text-decoration:none;
+  transition:transform .18s var(--ease-siembra), background .18s, border-color .18s, box-shadow .18s;}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--green); color:var(--white); border-color:transparent; box-shadow:0 1px 0 var(--green-deep)}
+.btn-primary:hover{box-shadow:0 8px 22px -10px var(--green)}
+.btn-inst{background:var(--blue); color:var(--white); border-color:transparent}
+.btn-live{background:var(--live); color:var(--white); border-color:transparent}
+.btn-cream{background:var(--paper); color:var(--ink); border-color:transparent; box-shadow:0 1px 0 rgba(0,0,0,.12)}
+.btn-cream:hover{box-shadow:0 8px 22px -12px rgba(0,0,0,.5)}
+.tag{display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:700;
+  letter-spacing:.05em; text-transform:uppercase; padding:5px 10px; border-radius:999px;
+  border:1px solid var(--line); color:var(--quiet); background:transparent}
+.dot{width:8px; height:8px; border-radius:50%; background:var(--quiet); flex:none}
+
+/* status */
+.st-ahora{color:var(--green-deep); border-color:var(--green)}
+.st-ahora .dot{background:var(--green)}
+.st-proxima{color:var(--blue-deep); border-color:var(--blue-soft)}
+.st-proxima .dot{background:var(--blue)}
+.st-libre{color:var(--ink-soft)}
+.st-libre .dot{background:var(--yellow)}
+.st-finalizada{color:var(--quiet); opacity:.75}
+.st-finalizada .dot{background:var(--line)}
+
+/* ---------- motion: brotar ---------- */
+@media (prefers-reduced-motion: no-preference){
+  .reveal{opacity:0; transform:translateY(20px); transition:opacity .6s var(--ease-siembra), transform .6s var(--ease-siembra)}
+  .reveal.is-in{opacity:1; transform:none}
+  .reveal[data-delay="1"]{transition-delay:.06s}
+  .reveal[data-delay="2"]{transition-delay:.12s}
+  .reveal[data-delay="3"]{transition-delay:.18s}
+  .reveal[data-delay="4"]{transition-delay:.24s}
+  @keyframes pulse-live{0%,100%{box-shadow:0 0 0 0 rgba(217,58,41,.5)}50%{box-shadow:0 0 0 7px rgba(217,58,41,0)}}
+  @keyframes bloom{0%{transform:scale(.2); opacity:0}60%{transform:scale(1.12)}100%{transform:scale(1); opacity:1}}
+  .live-dot{animation:pulse-live 1.8s ease-in-out infinite}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1; transform:none}
+}
+
+/* section rhythm */
+section{padding:clamp(48px,7vw,92px) 0}
+.band{background:var(--paper-2)}
+.hr{border:0; border-top:1px solid var(--line); margin:0}

@@ -1,0 +1,471 @@
+/* ============================================================
+   La Siembra 2026 — componentes y responsive
+   ============================================================ */
+
+/* ---------- NAV ---------- */
+.nav{position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter:saturate(1.2) blur(10px); border-bottom:1px solid var(--line)}
+.nav-in{display:flex; align-items:center; gap:18px; height:var(--nav-h)}
+.brand{display:flex; align-items:center; gap:8px; font-family:var(--font-display); font-weight:700;
+  font-size:20px; letter-spacing:-.03em; color:var(--ink); text-decoration:none}
+.brand b{color:var(--green)}
+.brand-mark{color:var(--green); font-size:17px}
+.brand-iso{width:28px; height:auto; flex:none; margin-right:1px}
+.brand-year{font-size:12px; font-weight:700; color:var(--quiet); border:1px solid var(--line); border-radius:999px; padding:2px 8px}
+.quick{display:flex; gap:4px; margin-left:auto}
+.quick-item{display:inline-flex; align-items:center; gap:7px; background:transparent; border:1px solid transparent;
+  color:var(--ink); font-weight:600; font-size:14.5px; padding:9px 14px; border-radius:999px; cursor:pointer;
+  transition:background .16s, color .16s, border-color .16s}
+.quick-item:hover{background:var(--green-soft); color:var(--green-deep)}
+.quick-item.is-live{color:var(--live); font-weight:700}
+.nav-tools{display:flex; align-items:center; gap:8px; margin-left:8px}
+.quick + .nav-tools{margin-left:0}
+.statepill{display:inline-flex; gap:2px; padding:3px; border:1px solid var(--line); border-radius:999px; background:var(--paper-2); cursor:pointer}
+.statepill span,.statepill button{font-family:inherit; font-size:12.5px; font-weight:700; padding:5px 10px; border-radius:999px; color:var(--quiet); border:0; background:transparent; cursor:pointer}
+.statepill span.on,.statepill button.on{background:var(--ink); color:var(--paper)}
+.icon-btn{display:inline-grid; place-items:center; width:40px; height:40px; border:1px solid var(--line);
+  background:var(--paper-2); color:var(--ink); border-radius:12px; cursor:pointer}
+.burger{display:none}
+.nav-sheet{display:none; flex-direction:column; gap:4px; padding:12px clamp(18px,4vw,40px) 18px; border-bottom:1px solid var(--line); background:var(--paper)}
+.sheet-item{display:flex; align-items:center; gap:10px; padding:14px 12px; border-radius:12px; border:1px solid var(--line);
+  background:var(--paper-2); font-weight:700; font-size:16px; color:var(--ink); cursor:pointer}
+.sheet-item.is-live{color:var(--live)}
+.sheet-state{display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:8px 12px 12px; margin-bottom:4px; border-bottom:1px dashed var(--line)}
+.sheet-state-label{font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:var(--quiet)}
+
+/* ---------- HERO ANTES ---------- */
+.hero-antes{padding-top:clamp(34px,6vw,76px); padding-bottom:clamp(18px,3vw,40px); position:relative; overflow:hidden}
+.hero-antes > .wrap{position:relative; z-index:1}
+.hero-grid{display:grid; grid-template-columns:1.04fr .96fr; gap:clamp(28px,5vw,68px); align-items:center; position:relative; z-index:1}
+.hero-copy{min-width:0}
+.hero-title{font-size:clamp(48px,10vw,120px); margin-top:clamp(14px,1.8vw,24px)}
+.hero-title .seed{color:var(--green)}
+/* La Siembra en un solo renglón; 2026 baja de tamaño y se apoya. */
+.ht-name{display:block}
+.ht-year{display:block; font-size:.58em; line-height:1; margin-top:.02em; color:var(--ink-soft)}
+/* una sola línea de lugar (fecha vive en el eyebrow) */
+.hero-place{font-family:var(--font-serif); font-size:clamp(17px,1.9vw,22px); color:var(--ink-soft);
+  margin-top:clamp(18px,2.4vw,28px); letter-spacing:.01em}
+.hero-meta{display:flex; gap:34px; flex-wrap:wrap; margin-top:30px}
+.hero-meta .k{display:block; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--quiet); font-weight:700}
+.hero-meta .v{font-family:var(--font-display); font-weight:600; font-size:18px}
+.hero-cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:30px}
+/* hero media — recibe footage real (16:9 desktop / 4:5 mobile) sin cambiar el layout */
+.hero-media{position:relative; margin:0; border-radius:22px; overflow:hidden; border:1px solid var(--line);
+  aspect-ratio:16/9; background:radial-gradient(120% 120% at 60% 0, var(--paper-2), var(--paper))}
+.hero-media-el{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
+@media (prefers-reduced-motion:no-preference){
+  .hero-media-el{animation:kenburns 20s ease-in-out infinite alternate}
+  @keyframes kenburns{from{transform:scale(1.03)}to{transform:scale(1.13) translate(-1.5%,-1.5%)}}
+}
+.hero-media-ph{position:absolute; inset:0; display:grid; place-items:center; gap:6px;
+  background:radial-gradient(120% 120% at 60% 10%, var(--green-soft), var(--paper-2))}
+.hero-media-ph .brote{width:52%; max-width:230px; opacity:.9}
+.ph-label{position:absolute; bottom:12px; left:0; right:0; text-align:center; font-size:11px; color:var(--quiet)}
+.hero-motif{position:absolute; top:12px; left:14px; display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--font-display); font-weight:700; font-size:12px; letter-spacing:.02em; color:var(--green-deep);
+  background:color-mix(in srgb,var(--paper) 78%,transparent); padding:5px 10px 5px 8px; border-radius:999px}
+.brote{width:100%; height:auto; max-width:420px}
+
+/* quick access strip — capa de acceso principal, liviana (ícono · texto · flecha) */
+.qstrip{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:clamp(30px,4.5vw,58px)}
+.qcard{display:flex; align-items:center; gap:13px; padding:15px 16px; border:1px solid var(--line); border-radius:14px;
+  background:color-mix(in srgb,var(--paper-2) 88%, var(--paper)); text-decoration:none; color:var(--ink);
+  transition:transform .18s var(--ease-siembra), border-color .18s, background .18s}
+.qcard:hover{transform:translateY(-3px); border-color:var(--green); background:var(--green-soft)}
+.qcard-ico{display:grid; place-items:center; width:38px; height:38px; flex:none; border-radius:10px;
+  background:var(--green-soft); color:var(--green-deep); transition:background .18s}
+.qcard:hover .qcard-ico{background:var(--paper-2)}
+.qcard-txt{display:flex; flex-direction:column; gap:1px; min-width:0}
+.qcard-label{font-family:var(--font-display); font-weight:700; font-size:17px; line-height:1.1}
+.qcard-sub{font-size:12.5px; color:var(--quiet)}
+.qcard-arrow{margin-left:auto; color:var(--quiet); flex:none; display:grid; place-items:center;
+  transition:transform .18s var(--ease-siembra), color .18s}
+.qcard:hover .qcard-arrow{color:var(--green-deep); transform:translateX(3px)}
+
+/* ---------- HERO DURANTE ---------- */
+.hero-durante{padding-top:clamp(28px,5vw,56px); padding-bottom:clamp(24px,4vw,40px); position:relative; overflow:hidden}
+.hero-durante .wrap{position:relative; z-index:1}
+.live-eyebrow{display:inline-flex; align-items:center; gap:9px; color:var(--live); font-size:13.5px}
+.hero-title.dur{font-size:clamp(34px,7vw,76px); line-height:.98; padding-right:clamp(150px,40vw,440px)}
+.hero-title.dur .seed{color:var(--green)}
+
+/* ===================== SISTEMA BROTE ===================== */
+.semilla{display:block}
+/* brote-hero: semilla radiada XL detrás de la foto, recortada por el borde derecho */
+.hero-brote-el{position:absolute; z-index:0; top:clamp(-8px,2.4vw,36px); right:min(-5%,-20px);
+  width:min(62vw,730px); height:auto; pointer-events:none;
+  transform:rotate(var(--brote-rot,0deg)); transform-origin:58% 46%;
+  filter:drop-shadow(0 28px 56px rgba(38,75,48,.20))}
+/* más color y presencia: lóbulos en verde medio (no pálido), rayos y centro más visibles */
+.hero-brote-el .semilla-petals circle{fill:color-mix(in srgb,var(--green-soft) 44%,var(--green))}
+.hero-brote-el .semilla-core line{stroke:var(--green-deep); opacity:.72}
+/* DURANTE: suelo verde profundo (artifact #264B30), flor encendida — otra temperatura */
+.hero-durante{background:#264B30; color:var(--paper)}
+.hero-durante .hero-title.dur{color:var(--paper)}
+.hero-durante .hero-title.dur .seed{color:var(--yellow)}
+.hero-durante .live-eyebrow{color:color-mix(in srgb,var(--live) 58%,var(--paper))}
+/* la flor vive en la columna derecha reservada por el padding del título (no pisa el texto) */
+.hero-durante .hero-brote-el{top:clamp(-6px,2vw,32px); bottom:auto; right:-3%; width:min(40vw,410px); opacity:1}
+.hero-durante .hero-brote-el .semilla-petals circle{fill:color-mix(in srgb,var(--green-soft) 64%,var(--paper))}
+.hero-durante .hero-brote-el .semilla-core line{stroke:color-mix(in srgb,var(--paper) 70%,var(--green-deep)); opacity:.6}
+/* palpitar "en vivo": el centro late suave una vez terminada la floración */
+@media (prefers-reduced-motion:no-preference){
+  .hero-brote-el.dur.pulsing .semilla-core{transform-box:fill-box; transform-origin:center; animation:live-breathe 2.4s ease-in-out infinite}
+  @keyframes live-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+}
+
+/* sello-live: semilla roja con centro que late. Único uso del rojo. */
+.sello-live{position:relative; display:inline-grid; place-items:center; flex:none}
+.sello-live-core{position:absolute; width:26%; height:26%; border-radius:50%; background:var(--paper)}
+@media (prefers-reduced-motion:no-preference){ .sello-live-core{animation:sello-latido 1.6s ease-in-out infinite} }
+@keyframes sello-latido{0%,100%{transform:scale(.72); opacity:.55} 50%{transform:scale(1.1); opacity:1}}
+
+/* Qué es — De la semilla a la flor, en cinco días */
+.quees-hero.quees-seq{background:var(--green); color:var(--paper); padding:clamp(52px,8vw,104px) 0; position:relative; overflow:hidden}
+.quees-seq .wrap{position:relative; z-index:1}
+/* isotipo adaptado como marca ilustrada de fondo (contraste ≤12%, no compite) */
+.quees-iso{position:absolute; z-index:0; right:clamp(-24px,-1vw,12px); top:clamp(22px,4vw,60px);
+  width:min(34vw,380px); height:auto; opacity:.14; pointer-events:none}
+.quees-head{max-width:none}
+.quees-seq .eyebrow.on-green{color:color-mix(in srgb,var(--paper) 70%,var(--yellow))}
+.quees-title{font-family:var(--font-display); font-size:clamp(30px,5vw,58px); line-height:1.02; letter-spacing:-.02em; color:var(--paper); margin-top:12px; max-width:22ch}
+.quees-title .nowrap{white-space:nowrap}
+.quees-surco{display:block; color:color-mix(in srgb,var(--paper) 58%,transparent); margin-top:18px}
+.seq{list-style:none; margin:clamp(28px,4vw,46px) 0 0; padding:0; display:grid; grid-template-columns:repeat(5,1fr); gap:clamp(14px,2vw,26px)}
+.seq-step{position:relative; padding-top:20px}
+.seq-rail{position:absolute; top:0; left:0; right:14px; height:1.5px; background:color-mix(in srgb,var(--paper) 32%,transparent)}
+.seq-icon{color:color-mix(in srgb,var(--paper) 86%,var(--yellow)); margin-bottom:12px}
+.seq-n{display:block; font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:color-mix(in srgb,var(--paper) 60%,transparent)}
+.seq-title{font-family:var(--font-display); font-weight:700; font-size:clamp(17px,1.55vw,21px); line-height:1.1; margin:7px 0; color:var(--paper); letter-spacing:-.01em}
+.seq-desc{font-size:14px; line-height:1.42; color:color-mix(in srgb,var(--paper) 80%,transparent)}
+/* florecer del ícono al entrar */
+@media (prefers-reduced-motion:no-preference){
+  .seq-step .seq-icon{transform:scale(.86) rotate(-6deg); transform-origin:50% 80%; opacity:0; transition:transform .7s var(--ease-out) .1s, opacity .5s ease .1s}
+  .seq-step.is-in .seq-icon{transform:none; opacity:1}
+}
+/* Qué es secundario (DURANTE): mismo relato, en papel y más quieto */
+.quees-seq.secondary{background:var(--paper-2)}
+.quees-seq.secondary .quees-title{color:var(--ink)}
+.quees-seq.secondary .eyebrow{color:var(--green-deep)}
+.quees-seq.secondary .quees-surco{color:var(--line)}
+.quees-seq.secondary .seq-rail{background:var(--line)}
+.quees-seq.secondary .seq-icon{color:var(--green)}
+.quees-seq.secondary .seq-n{color:var(--quiet)}
+.quees-seq.secondary .seq-title{color:var(--ink)}
+.quees-seq.secondary .seq-desc{color:var(--ink-soft)}
+
+/* Práctica — una firma vegetal (herbario) por tarjeta, en la esquina */
+.info-item{position:relative; overflow:hidden}
+.info-herb{position:absolute; right:10px; bottom:8px; color:var(--green); opacity:.42; pointer-events:none}
+.info-item.has-herb .info-v{padding-right:34px}
+
+/* ---------- AHORA / PRÓXIMO ---------- */
+.ahora-scroll{display:flex; gap:16px; overflow-x:auto; padding:22px clamp(18px,4vw,40px); scroll-snap-type:x mandatory; margin:0 auto; max-width:calc(var(--maxw) + 80px)}
+.ahora-item{flex:0 0 300px; scroll-snap-align:start}
+
+/* ---------- ACTIVITY CARD ---------- */
+.act{display:flex; flex-direction:column; gap:9px; background:var(--paper-2); border:1px solid var(--line);
+  border-radius:var(--radius); padding:18px; transition:border-color .18s, box-shadow .18s, transform .18s}
+.act:hover{border-color:var(--green); box-shadow:0 10px 26px -18px var(--green)}
+.act-active{border-color:var(--blue); box-shadow:0 0 0 2px var(--blue-soft)}
+.act-done{opacity:.62}
+.act-top{display:flex; align-items:center; justify-content:space-between; gap:10px}
+.act-time{font-family:var(--font-display); font-weight:700; font-size:16px; font-variant-numeric:tabular-nums}
+.act-cat{font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--quiet)}
+.act-name{font-family:var(--font-display); font-size:20px; line-height:1.08; letter-spacing:-.01em}
+.act-desc{font-size:14px; color:var(--ink-soft); line-height:1.45}
+.act-meta{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:2px}
+.act-meta .small{font-size:13px}
+.act-day,.act-level{font-size:12px; font-weight:600; color:var(--quiet); background:var(--paper-3); border-radius:999px; padding:3px 9px}
+.act-foot{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:6px; padding-top:12px; border-top:1px solid var(--line)}
+.area-chip{display:inline-flex; align-items:center; gap:7px; background:transparent; border:1px solid var(--line);
+  color:var(--blue-deep); font-weight:700; font-size:13px; padding:6px 11px; border-radius:999px; cursor:pointer;
+  transition:background .16s, border-color .16s}
+.area-chip:hover{background:var(--blue-soft); border-color:var(--blue)}
+.ref-badge{display:inline-grid; place-items:center; width:19px; height:19px; border-radius:50%; background:var(--blue);
+  color:#fff; font-size:11px; font-weight:800; flex:none}
+.ref-badge.big{width:34px; height:34px; font-size:16px}
+.resv{margin-left:auto; font-size:13px; font-weight:700; color:var(--green-deep); text-decoration:underline}
+
+/* ---------- PROGRAMA ---------- */
+.prog-days{display:flex; gap:8px; flex-wrap:wrap; margin:24px 0 8px}
+.day-tab{position:relative; display:flex; flex-direction:column; align-items:center; gap:1px; min-width:62px;
+  padding:10px 14px; border:1px solid var(--line); border-radius:14px; background:var(--paper-2); cursor:pointer; transition:all .16s}
+.day-tab:hover{border-color:var(--green)}
+.day-tab.on{background:var(--green); border-color:transparent; color:#fff}
+.day-wd{font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:inherit; opacity:.8}
+.day-nd{font-family:var(--font-display); font-weight:800; font-size:22px; line-height:1}
+.day-hoy{position:absolute; top:-8px; right:-6px; font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; background:var(--live); color:#fff; padding:2px 6px; border-radius:999px}
+/* Filtro por zona activo — estado visible cuando el mapa filtró el programa */
+.prog-filter{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:18px 0 4px;
+  background:var(--blue-soft); border:1px solid var(--blue); border-left:4px solid var(--blue);
+  border-radius:14px; padding:12px 16px; color:var(--blue-deep); font-size:15px;
+  animation:pf-in .32s var(--ease-siembra)}
+@keyframes pf-in{from{opacity:0; transform:translateY(-6px)}to{opacity:1; transform:none}}
+.pf-pin{display:inline-grid; place-items:center; width:30px; height:30px; flex:none;
+  background:var(--blue); color:#fff; border-radius:50%}
+.pf-text{min-width:0}
+.pf-text b{color:var(--ink)}
+.pf-text .ref-badge{background:var(--blue); color:#fff}
+.pf-count{display:block; font-size:13px; font-weight:600; color:var(--ink-soft); margin-top:2px}
+.pf-clear{margin-left:auto; background:var(--blue); color:#fff; border:0; border-radius:999px;
+  padding:8px 15px; font-weight:700; font-size:13.5px; cursor:pointer; white-space:nowrap;
+  transition:transform .16s var(--ease-siembra), box-shadow .16s}
+.pf-clear:hover{transform:translateY(-1px); box-shadow:0 8px 18px -10px var(--blue)}
+.programa.is-filtered .prog-grid{outline:1px dashed color-mix(in srgb,var(--blue) 40%,transparent); outline-offset:14px; border-radius:4px}
+@media (max-width:560px){ .pf-clear{margin-left:0} }
+.prog-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:18px}
+
+/* ---------- PLANO VIVO (signature) ---------- */
+.plano-layout{display:grid; grid-template-columns:1fr; gap:20px; margin-top:8px}
+.plano-layout.has-panel{grid-template-columns:1fr minmax(300px,360px)}
+.plano .sec-h{font-size:clamp(30px,5vw,54px)}
+/* selector de zonas — control primario en mobile, cómodo en desktop */
+.area-selector{display:flex; gap:8px; flex-wrap:wrap; margin:6px 0 18px}
+.area-opt{display:inline-flex; align-items:center; gap:7px; min-height:40px; padding:8px 14px; border:1px solid var(--line);
+  border-radius:999px; background:var(--paper-2); font-weight:600; font-size:14px; color:var(--ink); cursor:pointer;
+  transition:background .16s, border-color .16s, color .16s}
+.area-opt:hover{border-color:var(--blue)}
+.area-opt.on{background:var(--blue); color:#fff; border-color:transparent}
+.area-opt.on .ref-badge{background:#fff; color:var(--blue-deep)}
+
+.plano-stage{position:relative; border:1px solid var(--line); border-radius:20px; overflow:hidden; background:var(--paper);
+  box-shadow:inset 0 0 0 7px var(--paper-2), inset 0 0 0 8px var(--line), 0 34px 66px -42px rgba(0,0,0,.5)}
+.plano-tag{position:absolute; top:16px; left:16px; z-index:6; font-family:var(--font-display); font-weight:700; font-size:12px;
+  letter-spacing:.02em; color:var(--green-deep); background:color-mix(in srgb,var(--paper) 86%,transparent);
+  border:1px solid var(--line); padding:6px 12px; border-radius:999px}
+.plano-canvas{position:relative; width:100%}
+.plano-tint{position:absolute; inset:0; pointer-events:none;
+  /* mapa vivo y colorido: solo una viñeta suave para enmarcarlo dentro de la mat */
+  background:radial-gradient(132% 118% at 50% 36%, transparent 70%, rgba(26,29,21,.15) 100%);
+  box-shadow:inset 0 0 58px rgba(26,29,21,.08)}
+.plano-img{width:100%; height:auto; display:block;
+  filter:saturate(1.06) contrast(1.02) brightness(1.01)}
+.plano-overlay{position:absolute; inset:0; pointer-events:none}
+.route-path{filter:drop-shadow(0 1px 1px rgba(0,0,0,.15))}
+.pin{position:absolute; transform:translate(-50%,-50%); width:44px; height:44px; display:grid; place-items:center;
+  background:transparent; border:0; cursor:pointer; padding:0; z-index:2}
+.pin-hit{display:none}
+.pin-num{grid-area:1/1; display:grid; place-items:center; width:28px; height:28px; border-radius:50%;
+  background:var(--paper-2); border:2px solid var(--quiet); color:var(--ink); font-weight:800; font-size:13px;
+  box-shadow:0 3px 8px -2px rgba(0,0,0,.4); transition:transform .18s var(--ease-siembra), background .18s, border-color .18s, box-shadow .18s}
+.pin.seeded .pin-num{background:var(--green); border-color:#fff; color:#fff}
+.pin.headline .pin-num{width:34px; height:34px; font-size:15px; background:var(--green-deep)}
+.pin:hover .pin-num{transform:scale(1.12)}
+.pin.sel .pin-num{background:var(--blue); border-color:#fff; transform:scale(1.22); box-shadow:0 0 0 4px var(--blue-soft), 0 6px 14px -4px rgba(0,0,0,.5)}
+.pin-label{grid-area:1/1; align-self:end; transform:translateY(30px); font-size:11px; font-weight:700; color:var(--ink);
+  background:color-mix(in srgb,var(--paper) 86%,transparent); padding:2px 7px; border-radius:999px; white-space:nowrap;
+  opacity:0; transition:opacity .16s; pointer-events:none}
+.pin:hover .pin-label,.pin.sel .pin-label,.pin:focus-visible .pin-label{opacity:1}
+.pin.sel{z-index:4}
+@media (prefers-reduced-motion: no-preference){
+  @keyframes pin-pulse{0%{box-shadow:0 0 0 0 rgba(48,127,226,.55), 0 6px 14px -4px rgba(0,0,0,.5)}70%{box-shadow:0 0 0 14px rgba(48,127,226,0), 0 6px 14px -4px rgba(0,0,0,.5)}100%{box-shadow:0 0 0 0 rgba(48,127,226,0), 0 6px 14px -4px rgba(0,0,0,.5)}}
+  .pin.sel .pin-num{animation:pin-pulse 1.7s ease-out infinite}
+}
+
+.plano-panel{border:1px solid var(--line); border-radius:20px; background:var(--paper-2); padding:20px; align-self:start}
+.plano-panel.empty{display:grid; place-items:center; min-height:160px}
+.panel-hint{text-align:center; color:var(--quiet)}
+.panel-hint .ref-badge.big{background:var(--paper-3); color:var(--quiet); margin:0 auto 10px}
+.panel-head{display:flex; align-items:flex-start; justify-content:space-between; gap:10px}
+.panel-eyebrow{display:flex; align-items:center; gap:7px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--quiet)}
+.panel-title{font-family:var(--font-display); font-size:24px; margin-top:4px; letter-spacing:-.02em}
+.panel-close{width:34px; height:34px; border-radius:10px; border:1px solid var(--line); background:var(--paper); cursor:pointer; font-size:15px; color:var(--ink)}
+.panel-blurb{font-size:14px; color:var(--ink-soft); margin-top:8px}
+.panel-list{display:flex; flex-direction:column; gap:8px; margin-top:14px}
+.panel-act{border:1px solid var(--line); border-radius:12px; padding:11px 13px; background:var(--paper)}
+.panel-act-top{display:flex; align-items:center; justify-content:space-between; gap:8px}
+.panel-day{font-size:12px; font-weight:700; color:var(--quiet)}
+.panel-time{font-family:var(--font-display); font-weight:700; font-size:14px; font-variant-numeric:tabular-nums}
+.panel-act-name{font-weight:600; margin-top:3px}
+.plano-note{font-size:12.5px; color:var(--quiet); margin-top:14px}
+.plano-hint{font-size:13px; color:var(--ink-soft); margin-top:14px; font-weight:600}
+/* La señal (Plano Vivo) como momento de llegada: banda propia */
+.plano{background:var(--paper-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+
+/* dev badge en el toggle de estado */
+.statepill-tag{font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:var(--quiet); padding:5px 6px 5px 8px}
+
+/* utilidades de visibilidad */
+.only-mobile{display:none}
+@media (max-width:760px){ .only-mobile{display:block} }
+
+/* ---------- QUÉ ES (secundario, DURANTE) ---------- */
+.quees-in{max-width:none}
+.quees-text{font-size:clamp(22px,3.4vw,36px); line-height:1.32; max-width:26ch; margin-top:14px; letter-spacing:-.01em}
+.quees.secondary .quees-text{font-size:clamp(19px,2.4vw,24px)}
+
+/* ---------- QUÉ ES (momento de identidad, ANTES) — banda full-bleed verde ---------- */
+.quees-hero{background:var(--green); color:var(--paper); padding:clamp(56px,8vw,110px) 0}
+.quees-hero-grid{display:grid; grid-template-columns:auto 1fr; gap:clamp(24px,5vw,64px); align-items:start}
+.quees-hero-side{display:flex; flex-direction:column; gap:14px; padding-top:10px}
+.quees-sprout{color:color-mix(in srgb,var(--paper) 78%, var(--yellow))}
+.eyebrow.on-green{color:color-mix(in srgb,var(--paper) 82%,transparent)}
+.quees-hero-text{font-family:var(--font-serif); font-size:clamp(27px,4.6vw,52px); line-height:1.18;
+  letter-spacing:-.015em; max-width:20ch; color:var(--paper)}
+/* dark: la banda usa la superficie verde oscura con tinta clara */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .quees-hero{background:var(--green-soft)}
+  :root:not([data-theme="light"]) .quees-hero-text{color:var(--ink)}
+  :root:not([data-theme="light"]) .eyebrow.on-green{color:var(--green)}
+}
+:root[data-theme="dark"] .quees-hero{background:var(--green-soft)}
+:root[data-theme="dark"] .quees-hero-text{color:var(--ink)}
+:root[data-theme="dark"] .eyebrow.on-green{color:var(--green)}
+
+/* ---------- QUÉ ENCONTRÁS — collage editorial ---------- */
+.cat-line{font-size:clamp(18px,2.6vw,27px); color:var(--ink-soft); margin:14px 0 4px; letter-spacing:-.01em; line-height:1.35; max-width:34ch}
+.collage{display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:165px; gap:12px; margin-top:22px}
+.cell{position:relative; margin:0; border-radius:14px; overflow:hidden; background:var(--paper-3)}
+.cell img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease-siembra)}
+.cell:hover img{transform:scale(1.06)}
+.cell::after{content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(18,20,14,.66), rgba(18,20,14,0) 58%)}
+.cell figcaption{position:absolute; left:15px; bottom:13px; z-index:2; color:#fff; font-family:var(--font-display);
+  font-weight:700; font-size:16px; letter-spacing:-.01em; text-shadow:0 1px 10px rgba(0,0,0,.45)}
+.cell--xl{grid-column:span 2; grid-row:span 2}
+.cell--xl figcaption{font-size:23px}
+.cell--wide{grid-column:span 2}
+.cell--sm{grid-column:span 1}
+.encontras-note{margin-top:16px; font-size:13px}
+
+/* ---------- STREAMING ---------- */
+.streaming-in{display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(24px,4vw,48px); align-items:center}
+.streaming-copy .lead{margin:14px 0 22px}
+.streaming-copy .btn{margin-bottom:12px}
+.stream-plat{font-size:12.5px}
+.streaming-frame{position:relative; display:block; aspect-ratio:16/9; border-radius:18px; overflow:hidden;
+  border:1px solid var(--line); text-decoration:none; box-shadow:0 30px 60px -42px rgba(0,0,0,.5)}
+.frame-poster{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+.frame-overlay{position:absolute; inset:0; display:grid; place-items:center; text-align:center;
+  background:linear-gradient(to top, rgba(15,17,12,.6), rgba(15,17,12,.12)); color:#fff}
+.frame-overlay.on{background:linear-gradient(135deg, rgba(140,26,20,.6), rgba(38,10,8,.55))}
+.frame-play{display:inline-flex; flex-direction:column; align-items:center; gap:12px; font-weight:600; font-size:15px; text-shadow:0 1px 8px rgba(0,0,0,.5); padding:0 20px}
+.frame-play b{font-family:var(--font-display)}
+.play-btn{display:grid; place-items:center; width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,.92);
+  color:var(--green-deep); box-shadow:0 10px 28px -8px rgba(0,0,0,.6); transition:transform .2s var(--ease-siembra)}
+.streaming-frame:hover .play-btn{transform:scale(1.09)}
+.frame-live{display:inline-flex; align-items:center; gap:11px; font-family:var(--font-display); font-weight:800; letter-spacing:.05em; font-size:27px}
+/* "Estamos en vivo": marco vivo con un latido suave alrededor del poster */
+.streaming.is-live .streaming-frame{border-color:var(--live);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--live) 36%,transparent), 0 30px 60px -42px rgba(0,0,0,.5)}
+@media (prefers-reduced-motion:no-preference){
+  .streaming.is-live .streaming-frame{animation:live-glow 2.3s ease-in-out infinite}
+  @keyframes live-glow{
+    0%,100%{box-shadow:0 0 0 3px color-mix(in srgb,var(--live) 34%,transparent), 0 30px 60px -42px rgba(0,0,0,.5)}
+    50%{box-shadow:0 0 0 7px color-mix(in srgb,var(--live) 20%,transparent), 0 30px 60px -42px rgba(0,0,0,.5)}
+  }
+}
+
+/* ---------- CAMPOS DE COLOR: verde suave para "Desde casa" y Colaboradores
+   (misma intensidad; los eyebrows quedan en azul institucional, chicos) ---------- */
+.streaming{background:var(--green-soft)}
+.colab{background:var(--green-soft)}
+
+/* ---------- COLABORADORES · spotlight San Pío ---------- */
+.colab-spotlight{display:grid; grid-template-columns:minmax(170px,290px) 1fr; gap:clamp(22px,4vw,54px);
+  align-items:center; margin-top:clamp(24px,3vw,38px)}
+.cs-portrait{margin:0; position:relative}
+.semilla-masked{clip-path:url(#semilla-clip); -webkit-clip-path:url(#semilla-clip)}
+.cs-portrait img,.cs-portrait-ph{width:100%; aspect-ratio:1; object-fit:cover; display:block}
+.cs-portrait-ph{background:radial-gradient(circle at 50% 38%, var(--blue), var(--blue-deep))}
+.cs-body{min-width:0}
+.cs-body .eyebrow.inst{color:var(--blue-deep)}
+.cs-name{font-family:var(--font-display); font-weight:800; font-size:clamp(28px,4.2vw,48px); line-height:1.0;
+  letter-spacing:-.025em; color:var(--ink); margin:6px 0 12px}
+.cs-desc{font-size:clamp(18px,2vw,23px); line-height:1.4; color:var(--ink-soft); max-width:46ch}
+.cs-links{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px}
+.cs-chip{display:inline-flex; align-items:center; gap:8px; background:var(--blue); color:#fff; border:0;
+  border-radius:999px; padding:11px 17px; font-weight:700; font-size:14px; cursor:pointer;
+  transition:transform .16s var(--ease-siembra), box-shadow .16s}
+.cs-chip:hover{transform:translateY(-2px); box-shadow:0 10px 22px -12px var(--blue)}
+.cs-chip.ghost{background:transparent; color:var(--blue-deep); border:1.5px solid var(--blue)}
+/* estado vacío intencional: tres semillas de línea punteadas */
+.colab-empty{display:flex; align-items:center; gap:14px; margin-top:clamp(28px,4vw,46px); padding-top:22px;
+  border-top:1px dashed color-mix(in srgb,var(--green) 46%,transparent)}
+.colab-empty-seeds{display:inline-flex; gap:10px; color:var(--green-deep)}
+.colab-empty-seeds .empty-seed circle{stroke-dasharray:3.5 4.5; opacity:.55}
+.colab-empty-note{font-size:14px; color:var(--quiet)}
+@media (max-width:640px){
+  .colab-spotlight{grid-template-columns:1fr; gap:20px; justify-items:start}
+  .cs-portrait{width:min(64vw,240px)}
+}
+
+/* ---------- INFO ---------- */
+.info-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin-top:26px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden}
+.info-item{background:var(--paper); padding:22px}
+.info-k{font-family:var(--font-display); font-weight:700; font-size:16px; color:var(--green-deep); margin-bottom:6px}
+.info-v{font-size:15px; color:var(--ink-soft); line-height:1.5}
+
+/* ---------- FOOTER ---------- */
+.site-footer{border-top:1px solid var(--line); background:var(--paper-2); padding:48px 0 64px}
+.footer-in{display:flex; align-items:center; gap:clamp(22px,4vw,54px)}
+.footer-iso{width:clamp(84px,9vw,128px); height:auto; flex:none}
+.footer-copy{min-width:0}
+.footer-brand{display:flex; align-items:center; gap:9px; font-family:var(--font-display); font-weight:700; font-size:22px; flex-wrap:wrap}
+.footer-brand b{color:var(--green)}
+.footer-x{color:var(--quiet); font-weight:600; font-size:16px}
+.footer-holters{font-size:15px; font-weight:700; color:var(--ink-soft)}
+.footer-line{font-size:clamp(20px,3vw,28px); margin:14px 0 10px; color:var(--ink)}
+.footer-meta{font-size:14px}
+.footer-fine{font-size:12.5px; margin-top:16px}
+
+/* ============================================================
+   RESPONSIVE — recompone manteniendo identidad y jerarquía
+   ============================================================ */
+@media (max-width:1000px){
+  .prog-grid{grid-template-columns:repeat(2,1fr)}
+  .info-grid{grid-template-columns:repeat(2,1fr)}
+  .plano-layout.has-panel{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  .quick{display:none}
+  .burger{display:inline-grid}
+  .nav-tools .statepill{display:none}
+  .nav-sheet{display:flex}
+  .hero-grid{grid-template-columns:1fr; gap:clamp(22px,5vw,30px)}
+  .hero-media-ph .brote{max-width:190px}
+  .streaming-in{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .quees-hero-grid{grid-template-columns:1fr; gap:18px}
+  /* Qué es → carrusel con scroll-snap (rule: en mobile la secuencia es carrusel) */
+  .seq{grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:76%; gap:14px;
+    overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding-bottom:10px}
+  .seq-step{scroll-snap-align:start}
+  /* rule 6: los assets de margen se ocultan en mobile (no se achican); sobrevive el hero */
+  .info-herb{display:none}
+  .quees-surco{display:none}
+  .quees-iso{display:none}
+  .footer-in{flex-direction:column; align-items:flex-start; gap:20px}
+  .hero-brote-el{width:min(64vw,290px); right:-16%; top:-4%}
+  .qstrip{grid-template-columns:repeat(2,1fr)}
+  /* DURANTE mobile: la flor va al rincón superior, sin pisar el título */
+  .hero-durante .hero-brote-el{width:min(44vw,196px); right:-12%; top:-10%; bottom:auto}
+  .hero-title.dur{padding-right:0}
+  .area-selector{flex-wrap:nowrap; overflow-x:auto; padding-bottom:8px; -webkit-overflow-scrolling:touch}
+  .area-opt{flex:0 0 auto; min-height:46px}
+  /* mapa nativo mobile: canvas ampliado + paneo por scroll + focus al seleccionar */
+  .plano-stage{overflow:auto; -webkit-overflow-scrolling:touch; max-height:74vh}
+  .plano-canvas{width:185%}
+  .pin{width:48px; height:48px}
+  .pin-num{width:34px; height:34px; font-size:15px}
+  .pin.headline .pin-num{width:40px; height:40px; font-size:16px}
+  .pin-label{display:none}
+  .pin.sel .pin-label{display:block; transform:translateY(36px)}
+  /* panel → bottom sheet */
+  .plano-panel.empty{display:none}
+  .plano-layout.has-panel .plano-panel{position:fixed; left:0; right:0; bottom:0; z-index:60; border-radius:20px 20px 0 0;
+    max-height:64vh; overflow:auto; box-shadow:0 -20px 50px -20px rgba(0,0,0,.55); animation:sheet-up .3s var(--ease-siembra)}
+  @keyframes sheet-up{from{transform:translateY(100%)}to{transform:none}}
+}
+@media (max-width:640px){
+  .prog-grid{grid-template-columns:1fr}
+  .info-grid{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-media{aspect-ratio:4/3}
+}
+@media (max-width:520px){
+  .qstrip{grid-template-columns:1fr}
+}
