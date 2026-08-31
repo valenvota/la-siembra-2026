@@ -1,17 +1,20 @@
 /* ============================================================
    La Siembra 2026 — sistema visual
-   Verde = La Siembra/naturaleza · Azul (#004AAD) = Hölters/institucional (color principal)
-   Papel + tinta = base editorial · Amarillo = alegría puntual · Rojo = SOLO en vivo
-   Escala azul Hölters: claros E5F1FF / CCE2FF / 99C5FF · principal 004AAD · oscuros 004299 / 002C66 / 001633
+   AZUL HÖLTERS = identidad cromática dominante de TODO el sitio.
+   Base crema/blanco cálida · Amarillo = alegría puntual · Rojo = SOLO en vivo
+   Escala azul: claros E5F1FF / CCE2FF / 99C5FF · principal 004AAD · oscuros 004299 / 002C66 / 001633
+   Tinta = azul más oscuro (001633) en lugar de negro. El verde se retiró como color de sistema.
    ============================================================ */
 :root{
-  --paper:#F1EDE0; --paper-2:#FBF8EF; --paper-3:#E9E6D6;
-  --ink:#23261D; --ink-soft:#4A4C40; --quiet:#6C6B5B; --line:#D9D3C1;
-  --green:#34623F; --green-deep:#264B30; --green-soft:#DCE6D2;
-  /* Azul institucional Hölters */
+  --paper:#F1EDE0; --paper-2:#FBF8EF; --paper-3:#E8E7DB; --cream:#FBF8EF;
+  --ink:#001633; --ink-soft:#26406B; --quiet:#556E8E; --line:#CFDCEC;
+  /* Azul Hölters (escala oficial) */
   --blue:#004AAD; --blue-deep:#004299; --blue-darker:#002C66; --blue-darkest:#001633;
   --blue-200:#99C5FF; --blue-soft:#CCE2FF; --blue-pale:#E5F1FF;
-  --yellow:#E3A63C; --live:#D93A29; --white:#ffffff;
+  --blue-ground:#002C66; /* suelo azul sólido (NO cambia en dark): bandas Durante/oscuras */
+  /* tokens legacy 'green' reasignados a la escala azul (primario / oscuro / campo suave) */
+  --green:#004AAD; --green-deep:#002C66; --green-soft:#E5F1FF;
+  --yellow:#EAA92E; --live:#D93A29; --white:#ffffff;
 
   --font-display:"Bricolage Grotesque","Hanken Grotesk",system-ui,sans-serif;
   --font-serif:"Fraunces",Georgia,"Times New Roman",serif;
@@ -25,20 +28,20 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --paper:#191C15; --paper-2:#22261C; --paper-3:#2C3123;
-    --ink:#EFEBDD; --ink-soft:#CFCBBD; --quiet:#A9A695; --line:#3A3E30;
-    --green:#8FBF95; --green-deep:#6E9E75; --green-soft:#2C3826;
+    --paper:#0B1524; --paper-2:#122033; --paper-3:#1B2C44; --cream:#F1F5FB;
+    --ink:#E9F1FB; --ink-soft:#B7C8DE; --quiet:#8AA0BC; --line:#294059;
     --blue:#5B9BFF; --blue-deep:#99C5FF; --blue-darker:#CCE2FF; --blue-darkest:#E5F1FF;
-    --blue-200:#3A6FB5; --blue-soft:#12305C; --blue-pale:#0E2444;
+    --blue-200:#3A6FB5; --blue-soft:#123A66; --blue-pale:#0E2A4A;
+    --green:#5B9BFF; --green-deep:#99C5FF; --green-soft:#123A66;
     --yellow:#EEBB5A; --live:#F0664F;
   }
 }
 :root[data-theme="dark"]{
-  --paper:#191C15; --paper-2:#22261C; --paper-3:#2C3123;
-  --ink:#EFEBDD; --ink-soft:#CFCBBD; --quiet:#A9A695; --line:#3A3E30;
-  --green:#8FBF95; --green-deep:#6E9E75; --green-soft:#2C3826;
+  --paper:#0B1524; --paper-2:#122033; --paper-3:#1B2C44; --cream:#F1F5FB;
+  --ink:#E9F1FB; --ink-soft:#B7C8DE; --quiet:#8AA0BC; --line:#294059;
   --blue:#5B9BFF; --blue-deep:#99C5FF; --blue-darker:#CCE2FF; --blue-darkest:#E5F1FF;
-  --blue-200:#3A6FB5; --blue-soft:#12305C; --blue-pale:#0E2444;
+  --blue-200:#3A6FB5; --blue-soft:#123A66; --blue-pale:#0E2A4A;
+  --green:#5B9BFF; --green-deep:#99C5FF; --green-soft:#123A66;
   --yellow:#EEBB5A; --live:#F0664F;
 }
 
@@ -89,13 +92,13 @@ body::after{content:""; position:fixed; inset:0; z-index:1; pointer-events:none;
   border:1px solid var(--line); color:var(--quiet); background:transparent}
 .dot{width:8px; height:8px; border-radius:50%; background:var(--quiet); flex:none}
 
-/* status */
-.st-ahora{color:var(--green-deep); border-color:var(--green)}
-.st-ahora .dot{background:var(--green)}
-.st-proxima{color:var(--blue-deep); border-color:var(--blue-soft)}
+/* status — "ahora" en ámbar cálido (activo/alegre), "próxima" en azul institucional */
+.st-ahora{color:#9A6B12; border-color:var(--yellow)}
+.st-ahora .dot{background:var(--yellow)}
+.st-proxima{color:var(--blue-deep); border-color:var(--blue-200)}
 .st-proxima .dot{background:var(--blue)}
-.st-libre{color:var(--ink-soft)}
-.st-libre .dot{background:var(--yellow)}
+.st-libre{color:var(--quiet); border-color:var(--line)}
+.st-libre .dot{background:var(--blue-200)}
 .st-finalizada{color:var(--quiet); opacity:.75}
 .st-finalizada .dot{background:var(--line)}
 

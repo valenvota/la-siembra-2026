@@ -47,9 +47,9 @@ export function Semilla({
     <svg className={`semilla semilla-${variant} ${className}`} width={size} height={size} viewBox="0 0 200 200" fill="none" aria-hidden="true">
       <g className="semilla-petals">
         {LOBES.map((l, i) => (
-          <circle key={i} className={petalClass} cx={l.cx} cy={l.cy} r={LOBE_R} fill={pale ? "var(--green-soft)" : color} style={{ transformOrigin: `${CX}px ${CY}px` }} />
+          <circle key={i} className={petalClass} cx={l.cx} cy={l.cy} r={LOBE_R} fill={pale ? "var(--blue-200)" : color} style={{ transformOrigin: `${CX}px ${CY}px` }} />
         ))}
-        <circle cx={CX} cy={CY} r={CORE_R} fill={pale ? "var(--green-soft)" : color} />
+        <circle cx={CX} cy={CY} r={CORE_R} fill={pale ? "var(--blue-200)" : color} />
       </g>
       {variant === "radiada" && <RadiatedCore />}
     </svg>
@@ -81,8 +81,8 @@ export function BroteHero({ className = "" }: { className?: string }) {
 export function PetaloEsquina({ className = "" }: { className?: string }) {
   return (
     <svg className={`petalo-esquina ${className}`} width={72} height={72} viewBox="0 0 72 72" fill="none" aria-hidden="true">
-      <circle cx="36" cy="36" r="30" fill="var(--green)" />
-      <circle cx="36" cy="36" r="9" fill="var(--green-deep)" opacity="0.55" />
+      <circle cx="36" cy="36" r="30" fill="var(--blue)" />
+      <circle cx="36" cy="36" r="9" fill="var(--blue-darker)" opacity="0.55" />
     </svg>
   );
 }

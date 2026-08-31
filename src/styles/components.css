@@ -98,19 +98,19 @@
 .hero-brote-el{position:absolute; z-index:0; top:clamp(-8px,2.4vw,36px); right:min(-5%,-20px);
   width:min(62vw,730px); height:auto; pointer-events:none;
   transform:rotate(var(--brote-rot,0deg)); transform-origin:58% 46%;
-  filter:drop-shadow(0 28px 56px rgba(38,75,48,.20))}
-/* más color y presencia: lóbulos en verde medio (no pálido), rayos y centro más visibles */
-.hero-brote-el .semilla-petals circle{fill:color-mix(in srgb,var(--green-soft) 44%,var(--green))}
-.hero-brote-el .semilla-core line{stroke:var(--green-deep); opacity:.72}
-/* DURANTE: suelo verde profundo (artifact #264B30), flor encendida — otra temperatura */
-.hero-durante{background:#264B30; color:var(--paper)}
-.hero-durante .hero-title.dur{color:var(--paper)}
+  filter:drop-shadow(0 28px 56px rgba(0,42,102,.22))}
+/* flor del hero en AZUL confiado (cornflower) + centro amarillo + rayos navy */
+.hero-brote-el .semilla-petals circle{fill:color-mix(in srgb,var(--blue-200) 46%,var(--blue))}
+.hero-brote-el .semilla-core line{stroke:var(--blue-darker); opacity:.6}
+/* DURANTE: suelo azul profundo (navy), flor encendida en azul pálido — otra temperatura */
+.hero-durante{background:var(--blue-ground); color:var(--cream)}
+.hero-durante .hero-title.dur{color:var(--cream)}
 .hero-durante .hero-title.dur .seed{color:var(--yellow)}
-.hero-durante .live-eyebrow{color:color-mix(in srgb,var(--live) 58%,var(--paper))}
+.hero-durante .live-eyebrow{color:color-mix(in srgb,var(--live) 55%,var(--cream))}
 /* la flor vive en la columna derecha reservada por el padding del título (no pisa el texto) */
 .hero-durante .hero-brote-el{top:clamp(-6px,2vw,32px); bottom:auto; right:-3%; width:min(40vw,410px); opacity:1}
-.hero-durante .hero-brote-el .semilla-petals circle{fill:color-mix(in srgb,var(--green-soft) 64%,var(--paper))}
-.hero-durante .hero-brote-el .semilla-core line{stroke:color-mix(in srgb,var(--paper) 70%,var(--green-deep)); opacity:.6}
+.hero-durante .hero-brote-el .semilla-petals circle{fill:color-mix(in srgb,var(--blue-200) 62%,var(--cream))}
+.hero-durante .hero-brote-el .semilla-core line{stroke:color-mix(in srgb,var(--cream) 66%,var(--blue-200)); opacity:.7}
 /* palpitar "en vivo": el centro late suave una vez terminada la floración */
 @media (prefers-reduced-motion:no-preference){
   .hero-brote-el.dur.pulsing .semilla-core{transform-box:fill-box; transform-origin:center; animation:live-breathe 2.4s ease-in-out infinite}
@@ -240,8 +240,8 @@
 .plano-canvas{position:relative; width:100%}
 .plano-tint{position:absolute; inset:0; pointer-events:none;
   /* mapa vivo y colorido: solo una viñeta suave para enmarcarlo dentro de la mat */
-  background:radial-gradient(132% 118% at 50% 36%, transparent 70%, rgba(26,29,21,.15) 100%);
-  box-shadow:inset 0 0 58px rgba(26,29,21,.08)}
+  background:radial-gradient(132% 118% at 50% 36%, transparent 70%, rgba(0,22,51,.15) 100%);
+  box-shadow:inset 0 0 58px rgba(0,22,51,.08)}
 .plano-img{width:100%; height:auto; display:block;
   filter:saturate(1.06) contrast(1.02) brightness(1.01)}
 .plano-overlay{position:absolute; inset:0; pointer-events:none}
@@ -262,7 +262,7 @@
 .pin:hover .pin-label,.pin.sel .pin-label,.pin:focus-visible .pin-label{opacity:1}
 .pin.sel{z-index:4}
 @media (prefers-reduced-motion: no-preference){
-  @keyframes pin-pulse{0%{box-shadow:0 0 0 0 rgba(48,127,226,.55), 0 6px 14px -4px rgba(0,0,0,.5)}70%{box-shadow:0 0 0 14px rgba(48,127,226,0), 0 6px 14px -4px rgba(0,0,0,.5)}100%{box-shadow:0 0 0 0 rgba(48,127,226,0), 0 6px 14px -4px rgba(0,0,0,.5)}}
+  @keyframes pin-pulse{0%{box-shadow:0 0 0 0 rgba(0,74,173,.55), 0 6px 14px -4px rgba(0,0,0,.5)}70%{box-shadow:0 0 0 14px rgba(0,74,173,0), 0 6px 14px -4px rgba(0,0,0,.5)}100%{box-shadow:0 0 0 0 rgba(0,74,173,0), 0 6px 14px -4px rgba(0,0,0,.5)}}
   .pin.sel .pin-num{animation:pin-pulse 1.7s ease-out infinite}
 }
 
