@@ -124,13 +124,13 @@ export function HeroAntes() {
       <BroteHero className="hero-brote-el" />
       <div className="wrap hero-grid">
         <div className="hero-copy">
-          <p className="eyebrow reveal">Festival cultural · 28 sep — 2 oct 2026</p>
+          <p className="eyebrow reveal">28 sep — 2 oct 2026</p>
           <h1 className="display hero-title reveal" data-delay="1">
-            <span className="ht-name">La <span className="seed">Siembra</span></span>
+            <span className="ht-name"><span className="seed">Siembra</span></span>
             <span className="ht-year">2026</span>
           </h1>
           <p className="hero-place serif reveal" data-delay="2">
-            Hölters Natur · Los Cardales, Buenos Aires
+            Colegio Hölters Natur · Los Cardales, Buenos Aires
           </p>
         </div>
         <HeroMedia />
@@ -154,7 +154,7 @@ function QuickAccessStrip() {
     { id: "programa", label: "Programa", sub: "Planificá tu visita" },
     { id: "mapa", label: "Mapa", sub: "Recorré el campus" },
     { id: "streaming", label: "En vivo", sub: "Sumate a distancia" },
-    { id: "info", label: "Cómo llegar", sub: "Todo para venir" },
+    { id: "info", label: "Cómo llegar", sub: "Acceso y estacionamiento" },
   ];
   return (
     <nav className="qstrip reveal" data-delay="3" aria-label="Accesos rápidos">

@@ -90,9 +90,9 @@ export function PlanoVivo() {
     <section id="mapa" className="plano">
       <div className="wrap">
         <p className="eyebrow inst reveal">Hölters Natur · 12 hectáreas</p>
-        <h2 className="sec-h reveal" data-delay="1">El Plano Vivo</h2>
+        <h2 className="sec-h reveal" data-delay="1">Recorré el campus</h2>
         <p className="lead reveal" data-delay="2">
-          Un territorio para recorrer. Elegí una zona del campus y descubrí qué está pasando ahí — cada actividad conoce su lugar.
+          Un territorio para recorrer. Elegí una zona del campus y descubrí qué está pasando ahí.
         </p>
       </div>
 
@@ -144,7 +144,6 @@ export function PlanoVivo() {
         </div>
 
         <p className="plano-hint only-mobile reveal">Deslizá el plano para explorar · tocá una zona o usá el selector.</p>
-        <p className="plano-note reveal">Base: plano ilustrado real de Hölters (provisional). El recorrido en azul conecta las zonas con actividad.</p>
       </div>
     </section>
   );

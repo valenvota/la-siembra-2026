@@ -44,7 +44,7 @@
 .hero-title .seed{color:var(--green)}
 /* La Siembra en un solo renglón; 2026 baja de tamaño y se apoya. */
 .ht-name{display:block}
-.ht-year{display:block; font-size:.58em; line-height:1; margin-top:.02em; color:var(--ink-soft)}
+.ht-year{display:block; font-size:.82em; line-height:1; margin-top:.02em; color:var(--ink-soft)}
 /* una sola línea de lugar (fecha vive en el eyebrow) */
 .hero-place{font-family:var(--font-serif); font-size:clamp(17px,1.9vw,22px); color:var(--ink-soft);
   margin-top:clamp(18px,2.4vw,28px); letter-spacing:.01em}
@@ -397,7 +397,7 @@
 }
 
 /* ---------- INFO ---------- */
-.info-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin-top:26px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden}
+.info-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; margin-top:26px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden}
 .info-item{background:var(--paper); padding:22px}
 .info-k{font-family:var(--font-display); font-weight:700; font-size:16px; color:var(--green-deep); margin-bottom:6px}
 .info-v{font-size:15px; color:var(--ink-soft); line-height:1.5}
@@ -410,13 +410,20 @@
 .footer-brand{display:flex; align-items:center; gap:13px; font-family:var(--font-display); font-weight:700; font-size:22px; flex-wrap:wrap}
 .footer-brand b{color:var(--green)}
 .footer-logo{height:64px; width:auto; flex:none}
+.brand-x{color:var(--quiet); font-weight:600; font-size:15px; margin:0 1px}
+.brand-holters-logo{height:30px; width:auto; flex:none; display:block}
+.footer-holters-logo{height:52px; width:auto; flex:none}
 /* El logo tiene wordmark negro fijo: en dark mode va sobre una placa clara para que se lea */
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]) .brand-logo{background:#fff; border-radius:10px; padding:4px 8px}
   :root:not([data-theme="light"]) .footer-logo{background:#fff; border-radius:12px; padding:8px 12px}
+  :root:not([data-theme="light"]) .brand-holters-logo{background:#fff; border-radius:8px; padding:3px 6px}
+  :root:not([data-theme="light"]) .footer-holters-logo{background:#fff; border-radius:10px; padding:6px 10px}
 }
 :root[data-theme="dark"] .brand-logo{background:#fff; border-radius:10px; padding:4px 8px}
 :root[data-theme="dark"] .footer-logo{background:#fff; border-radius:12px; padding:8px 12px}
+:root[data-theme="dark"] .brand-holters-logo{background:#fff; border-radius:8px; padding:3px 6px}
+:root[data-theme="dark"] .footer-holters-logo{background:#fff; border-radius:10px; padding:6px 10px}
 .footer-x{color:var(--quiet); font-weight:600; font-size:16px}
 .footer-holters{font-size:15px; font-weight:700; color:var(--blue-deep)}
 .footer-line{font-size:clamp(20px,3vw,28px); margin:14px 0 10px; color:var(--ink)}

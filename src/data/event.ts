@@ -85,7 +85,7 @@ export const data: SiembraData = {
       name: "Colegio San Pío X",
       country: "Colombia",
       city: "Bogotá",
-      blurb: "Viajan para bailar con nosotros y compartir una semana de aula abierta.",
+      blurb: "Vienen a compartir su música, sus bailes y una semana entera con nuestra comunidad.",
       activityId: "a11",
       // Escudo oficial del colegio (Colegio San Pío X · Bogotá).
       logo: "/assets/media/colpiox-escudo.png",
@@ -103,9 +103,9 @@ export const data: SiembraData = {
 
   practical: {
     address: "Los Flamencos 125, Alto Los Cardales, Campana, Buenos Aires.",
-    howToArrive: "Acceso por Ruta 4. Seguí Calle Los Flamencos hasta la entrada del campus.",
-    hours: "Lunes 28 de septiembre a viernes 2 de octubre. Actividades por la tarde; consultá el programa.",
-    parking: "Estacionamiento dentro del campus, señalizado con la letra E.",
+    howToArrive: "Ingresá por Ruta 4 y seguí Calle Los Flamencos hasta la entrada del campus.",
+    hours: "Del lunes 28 de septiembre al viernes 2 de octubre. Consultá el programa para los horarios de cada actividad.",
+    parking: "Espacio dentro del campus.",
     accessibility: "Recorridos accesibles en los sectores principales. Ante cualquier necesidad, acercate a Recepción.",
     services: "Comedor y puntos de comida disponibles durante el evento.",
   },

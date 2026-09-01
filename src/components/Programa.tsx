@@ -102,6 +102,7 @@ export function Programa() {
             <ActivityCard key={a.id} activity={a} />
           ))}
         </div>
+        <p className="prog-legal muted reveal">Las actividades y horarios pueden estar sujetos a modificaciones.</p>
       </div>
     </section>
   );

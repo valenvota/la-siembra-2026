@@ -1,16 +1,16 @@
 import { useApp, areaById } from "../lib/app";
 import { dayLabel } from "../lib/time";
 import { CATEGORY_LABEL, type Category } from "../data/types";
-import { GrowthIcon, Herbario, HoltersShield, Semilla, SemillaClip, Surco } from "./Brote";
+import { GrowthIcon, Herbario, SemillaClip, Surco } from "./Brote";
 
 // "De la semilla a la flor, en cinco días" — la ilustración botánica es el indicador de avance.
 // El relato lo cuentan el título + los íconos que crecen + la composición; sin nombrar cada etapa.
 const STAGES = [
-  { n: "01", title: "Se abren las puertas", desc: "El colegio deja de ser un adentro." },
-  { n: "02", title: "Aparece lo cotidiano", desc: "Lo que pasa todos los días en las aulas, ahora a la vista." },
-  { n: "03", title: "Se recorre el campus", desc: "Doce hectáreas, veinte zonas, un solo mapa." },
-  { n: "04", title: "Se muestra el trabajo", desc: "Teatro, música, ciencia, danza, arte." },
-  { n: "05", title: "Nos encontramos", desc: "Cinco días que terminan con toda la comunidad junta." },
+  { n: "01", title: "Se abren las puertas", desc: "El colegio se vuelve un espacio abierto." },
+  { n: "02", title: "Aparece lo cotidiano", desc: "El trabajo del año sale del aula." },
+  { n: "03", title: "Se recorre el campus", desc: "Cada zona del campus, con algo para descubrir." },
+  { n: "04", title: "Se muestra el trabajo", desc: "Teatro, música, ciencia, danza, debate, cine, arte." },
+  { n: "05", title: "Nos encontramos", desc: "Familias, docentes y estudiantes, compartiendo el mismo espacio." },
 ];
 
 export function QueEs({ secondary = false }: { secondary?: boolean }) {
@@ -69,7 +69,6 @@ export function QueEncontras() {
             </figure>
           ))}
         </div>
-        <p className="encontras-note reveal muted">Fotografía temporal con licencia libre · se reemplaza por imágenes reales de Hölters.</p>
       </div>
     </section>
   );
@@ -83,20 +82,19 @@ export function Streaming() {
     <section id="streaming" className={`streaming${live ? " is-live" : ""}`}>
       <div className="wrap streaming-in">
         <div className="streaming-copy reveal">
-          <p className="eyebrow inst">{live ? "Transmisión en vivo" : "Desde casa"}</p>
+          <p className="eyebrow inst">{live ? "Transmisión en vivo" : "Streaming"}</p>
           <h2 className="sec-h">{live ? "Estamos en vivo." : "También podés ser parte desde casa."}</h2>
           <p className="lead">
             {live
               ? "Sumate a la transmisión y acompañá La Siembra estés donde estés."
-              : `Familias y amigos pueden acompañar a distancia. Próxima transmisión: ${s.nextLabel}.`}
+              : "Seguí Siembra en vivo desde donde estés. Transmisión en directo para que ninguna familia se lo pierda."}
           </p>
           <a className={`btn ${live ? "btn-live" : "btn-inst"}`} href={s.url} target="_blank" rel="noreferrer">
             {live ? <><span className="dot live-dot" style={{ background: "#fff" }} /> Estamos en vivo</> : "Ver transmisión en vivo"}
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M7 17 17 7M9 7h8v8" /></svg>
           </a>
-          <p className="stream-plat muted">Plataforma: {s.platformLabel} · enlace configurable (provisional)</p>
         </div>
-        <a className="streaming-frame reveal" data-delay="1" href={s.url} target="_blank" rel="noreferrer" aria-label={live ? "Ver transmisión en vivo" : `Próxima transmisión ${s.nextLabel}`}>
+        <a className="streaming-frame reveal" data-delay="1" href={s.url} target="_blank" rel="noreferrer" aria-label="Ver transmisión en vivo">
           <img className="frame-poster" src="/assets/media/streaming.jpg" alt="" />
           <div className={`frame-overlay${live ? " on" : ""}`}>
             {live ? (
@@ -104,7 +102,7 @@ export function Streaming() {
             ) : (
               <span className="frame-play">
                 <span className="play-btn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z" /></svg></span>
-                Próxima transmisión · <b>{s.nextLabel}</b>
+                Ver transmisión
               </span>
             )}
           </div>
@@ -137,7 +135,7 @@ export function Colaboradores() {
     <section className="colab">
       <SemillaClip />
       <div className="wrap">
-        <p className="eyebrow inst reveal">Colaboradores</p>
+        <p className="eyebrow inst reveal">Invitados 2026</p>
         <h2 className="sec-h reveal" data-delay="1">Instituciones que siembran con nosotros.</h2>
 
         <article className="colab-spotlight reveal" data-delay="2">
@@ -149,13 +147,12 @@ export function Colaboradores() {
             )}
           </figure>
           <div className="cs-body">
-            <p className="eyebrow inst">Colaboradores · Invitados 2026</p>
             {partner.logo && (
               <img className="cs-logo" src={partner.logo} alt={`Escudo del ${partner.name}`} loading="lazy" />
             )}
             <h3 className="cs-name">{partner.name}</h3>
             <p className="cs-desc serif">
-              {[partner.city, partner.country].filter(Boolean).join(", ")}. {partner.blurb}
+              Desde {[partner.city, partner.country].filter(Boolean).join(", ")}. {partner.blurb}
             </p>
             {act && (
               <div className="cs-links">
@@ -171,15 +168,6 @@ export function Colaboradores() {
             )}
           </div>
         </article>
-
-        <div className="colab-empty reveal" data-delay="2">
-          <span className="colab-empty-seeds" aria-hidden="true">
-            <Semilla variant="line" size={26} className="empty-seed" />
-            <Semilla variant="line" size={26} className="empty-seed" />
-            <Semilla variant="line" size={26} className="empty-seed" />
-          </span>
-          <span className="colab-empty-note">Más instituciones se suman pronto.</span>
-        </div>
       </div>
     </section>
   );
@@ -192,10 +180,8 @@ export function InfoPractica() {
   const items = [
     { k: "Dónde es", v: p.address },
     { k: "Cómo llegar", v: p.howToArrive },
-    { k: "Horarios", v: p.hours, herb: "espiga" as const },
+    { k: "Cuándo", v: p.hours, herb: "espiga" as const },
     { k: "Estacionamiento", v: p.parking, herb: "acacia" as const },
-    { k: "Accesibilidad", v: p.accessibility, herb: "eucalipto" as const },
-    { k: "Comida y servicios", v: p.services || "", herb: "cardo" as const },
   ].filter((i) => i.v);
   return (
     <section id="info" className="info">
@@ -225,14 +211,13 @@ export function Footer() {
           <div className="footer-brand">
             <img className="footer-logo" src="/assets/brand/logo-siembra-2026.png" alt="Siembra · Edición 2026" loading="lazy" />
             <span className="footer-x" aria-hidden="true">×</span>
-            <HoltersShield size={28} />
-            <span className="footer-holters">Hölters Natur</span>
+            <img className="footer-holters-logo" src="/assets/brand/isologo-holters-horizontal.png" alt="Hölters Natur" loading="lazy" />
           </div>
           <p className="footer-line serif">{data.event.tagline}</p>
           <p className="footer-meta muted">
             {data.event.venueName} · {data.event.locationLabel} · 28 SEP — 2 OCT 2026
           </p>
-          <p className="footer-fine muted">Programa y datos sujetos a confirmación.</p>
+          <p className="footer-fine muted">Las actividades y horarios pueden estar sujetos a modificaciones.</p>
         </div>
       </div>
     </footer>
