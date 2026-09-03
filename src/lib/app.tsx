@@ -5,11 +5,11 @@ import { loadActivities } from "../data/programa";
 export type Mode = "antes" | "durante";
 
 /**
- * Toggle temporal de vista previa Antes/Durante, VISIBLE en producción mientras la web
- * está en desarrollo, para que el equipo pueda revisar ambos estados sin tocar la URL.
- * Poner en `false` (o borrar su uso) cuando la web esté lista para el público.
+ * Toggle Antes/Durante en el nav. APAGADO para publicación (etapa pública): el público
+ * NO ve el toggle; el modo se resuelve solo por fecha. El equipo sigue pudiendo previsualizar
+ * el estado Durante con `?modo=durante` en la URL (funciona siempre, independiente de esto).
  */
-export const PREVIEW_MODE_TOGGLE = true;
+export const PREVIEW_MODE_TOGGLE = false;
 
 interface AppCtx {
   mode: Mode;
