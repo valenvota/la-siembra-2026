@@ -46,14 +46,17 @@ export function ActivityCard({
         {showStatus && <span className="act-time small">{timeRange(activity)}</span>}
         {showDay && <span className="act-day">{dayLabel(activity.day)}</span>}
         {activity.level && <span className="act-level">{LEVEL_LABEL[activity.level]}</span>}
+        {activity.curso && <span className="act-curso">{activity.curso}</span>}
       </div>
 
       <div className="act-foot">
-        <button className="area-chip" onClick={focusOnMap} title={`Ver ${area?.displayName} en el mapa`}>
-          <span className="ref-badge">{area?.referenceNumber}</span>
-          {area?.displayName}
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-        </button>
+        {area && (
+          <button className="area-chip" onClick={focusOnMap} title={`Ver ${area.displayName} en el mapa`}>
+            <span className="ref-badge">{area.referenceNumber}</span>
+            {area.displayName}
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </button>
+        )}
         {activity.requiresReservation && (
           <a className="resv" href={activity.reservationUrl} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>
             Reservar lugar

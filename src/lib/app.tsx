@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { data } from "../data/event";
+import { loadActivities } from "../data/programa";
 
 export type Mode = "antes" | "durante";
 
@@ -67,6 +68,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [programDay, setProgramDay] = useState<string | null>(null);
   const dev = initial.dev;
 
+  // Programa en vivo desde la planilla WEB (Google Sheets). Arranca con el snapshot
+  // embebido (data.activities) y se re-hidrata al montar; si la carga falla, queda el snapshot.
+  const [activities, setActivities] = useState(data.activities);
+  useEffect(() => {
+    let alive = true;
+    loadActivities().then((live) => {
+      if (alive && live && live.length) setActivities(live);
+    });
+    return () => { alive = false; };
+  }, []);
+  const liveData = useMemo(() => ({ ...data, activities }), [activities]);
+
   // Seleccionar un área (mapa, chips, tarjetas) limpia el día objetivo → el programa
   // hace su auto-salto genérico. El spotlight setea programDay después para un día puntual.
   function selectArea(id: string | null) {
@@ -86,7 +99,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     mode,
     setMode: changeMode,
     now,
-    data,
+    data: liveData,
     dev,
     showModeToggle: dev || PREVIEW_MODE_TOGGLE,
     selectedAreaId,

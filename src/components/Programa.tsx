@@ -102,6 +102,7 @@ export function Programa() {
             <ActivityCard key={a.id} activity={a} />
           ))}
         </div>
+        <p className="prog-nota reveal">El sábado 3 de octubre, estudiantes de Hölters Natur y del Colegio San Pío X participan de la Fogata de San Juan en Los Cardales.</p>
         <p className="prog-legal muted reveal">Las actividades y horarios pueden estar sujetos a modificaciones.</p>
       </div>
     </section>

@@ -2,6 +2,7 @@ import { useApp, areaById } from "../lib/app";
 import { dayLabel } from "../lib/time";
 import { CATEGORY_LABEL, type Category } from "../data/types";
 import { GrowthIcon, Herbario, SemillaClip, Surco } from "./Brote";
+import { ActivityCard } from "./ActivityCard";
 
 // "De la semilla a la flor, en cinco días" — la ilustración botánica es el indicador de avance.
 // El relato lo cuentan el título + los íconos que crecen + la composición; sin nombrar cada etapa.
@@ -67,6 +68,30 @@ export function QueEncontras() {
               <img src={`/assets/media/${cell.img}.jpg`} alt="" loading="lazy" />
               <figcaption>{cell.label}</figcaption>
             </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Muestras de recorrido libre: instalaciones/muestras que suceden toda la semana, sin
+// horario fijo (Activity.allWeek). Van en su propia sección, no en el programa por día.
+export function MuestrasLibres() {
+  const { data } = useApp();
+  const items = data.activities.filter((a) => a.allWeek);
+  if (!items.length) return null;
+  return (
+    <section id="muestras" className="muestras band">
+      <div className="wrap">
+        <p className="eyebrow reveal">Toda la semana</p>
+        <h2 className="sec-h reveal" data-delay="1">Muestras de recorrido libre</h2>
+        <p className="lead reveal" data-delay="2">
+          Instalaciones y muestras abiertas durante toda la Siembra, para recorrer a tu ritmo, sin horario.
+        </p>
+        <div className="prog-grid reveal" data-delay="2">
+          {items.map((a) => (
+            <ActivityCard key={a.id} activity={a} />
           ))}
         </div>
       </div>

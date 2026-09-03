@@ -180,6 +180,7 @@
 .act-meta{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:2px}
 .act-meta .small{font-size:13px}
 .act-day,.act-level{font-size:12px; font-weight:600; color:var(--quiet); background:var(--paper-3); border-radius:999px; padding:3px 9px}
+.act-curso{font-size:12px; font-weight:700; color:var(--blue-deep); background:var(--blue-pale); border-radius:999px; padding:3px 9px}
 .act-foot{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:6px; padding-top:12px; border-top:1px solid var(--line)}
 .area-chip{display:inline-flex; align-items:center; gap:7px; background:transparent; border:1px solid var(--line);
   color:var(--blue-deep); font-weight:700; font-size:13px; padding:6px 11px; border-radius:999px; cursor:pointer;
@@ -218,6 +219,8 @@
 .programa.is-filtered .prog-grid{outline:1px dashed color-mix(in srgb,var(--blue) 40%,transparent); outline-offset:14px; border-radius:4px}
 @media (max-width:560px){ .pf-clear{margin-left:0} }
 .prog-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:18px}
+.prog-nota{margin-top:26px; font-size:14.5px; color:var(--ink-soft); line-height:1.55; max-width:64ch}
+.prog-legal{margin-top:8px; font-size:13px}
 
 /* ---------- PLANO VIVO (signature) ---------- */
 .plano-layout{display:grid; grid-template-columns:1fr; gap:20px; margin-top:8px}

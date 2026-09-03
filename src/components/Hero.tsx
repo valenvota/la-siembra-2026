@@ -66,7 +66,7 @@ function HeroMedia() {
           <span className="ph-label">Foto / loop del campus · 16:9 desktop · 4:5 mobile</span>
         </div>
       )}
-      <span className="hero-motif" aria-hidden="true"><BroteMark /> La Siembra</span>
+      <span className="hero-motif" aria-hidden="true"><BroteMark /> Siembra</span>
     </figure>
   );
 }

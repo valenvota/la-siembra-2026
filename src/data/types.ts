@@ -40,12 +40,17 @@ export interface Activity {
   end?: string;
   areaId: string;
   level?: Level;
+  /** Curso/s de la actividad (p.ej. "6.° Azul", "3.° año", "Salas de 5"). Viene de la planilla. */
+  curso?: string;
   category: Category;
   description?: string;
   image?: string;
   requiresReservation?: boolean;
   /** Link externo (Google Form / plataforma). No construimos backend. */
   reservationUrl?: string;
+  /** Muestra "de recorrido libre" que sucede toda la semana, sin día ni horario fijo.
+   *  Se lista en su propia sección, no en el programa por día. `day` queda vacío. */
+  allWeek?: boolean;
 }
 
 export interface Partner {
