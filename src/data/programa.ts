@@ -1,33 +1,29 @@
 // Carga del programa en el cliente, con degradación en cascada:
-//   1) /api/programa       (serverless de Vercel, cacheado — producción)
+//   1) /api/programa       (proxy serverless cacheado de Vercel — producción)
 //   2) gviz directo        (dev local, o si la función falla — CORS ok)
 //   3) null → el caller usa el snapshot embebido (src/data/event.ts)
-// Así la web nunca queda sin programa.
+// Ambas fuentes devuelven el CSV de la pestaña WEB; la normalización es siempre local.
 
 import type { Activity } from "./types";
 import { csvToActivities, sheetCsvUrl } from "./normalize";
 
-export async function loadActivities(): Promise<Activity[] | null> {
-  // 1) Función serverless
+async function fetchCsv(url: string): Promise<string | null> {
   try {
-    const r = await fetch("/api/programa", { headers: { accept: "application/json" } });
-    if (r.ok) {
-      const j = await r.json();
-      if (Array.isArray(j?.activities) && j.activities.length) return j.activities as Activity[];
-    }
+    const r = await fetch(url);
+    if (r.ok) return await r.text();
   } catch {
-    /* sigue al fallback */
+    /* sin conexión / bloqueado */
   }
-  // 2) gviz directo (sirve en dev, donde /api no corre)
-  try {
-    const r = await fetch(sheetCsvUrl());
-    if (r.ok) {
-      const acts = csvToActivities(await r.text());
+  return null;
+}
+
+export async function loadActivities(): Promise<Activity[] | null> {
+  for (const url of ["/api/programa", sheetCsvUrl()]) {
+    const csv = await fetchCsv(url);
+    if (csv) {
+      const acts = csvToActivities(csv);
       if (acts.length) return acts;
     }
-  } catch {
-    /* sigue al fallback */
   }
-  // 3) sin datos frescos
   return null;
 }

@@ -1,23 +1,22 @@
-// Función serverless (Vercel) — fuente del programa para la web.
-// Lee la pestaña WEB de la planilla, la normaliza y la devuelve como JSON cacheado.
-// El cliente (src/data/programa.ts) le pega a este endpoint; si falla, cae a gviz directo
-// y, en última instancia, al snapshot embebido (src/data/event.ts). La web nunca queda vacía.
+// Función serverless (Vercel) — proxy CACHEADO del programa.
+// A propósito NO importa nada del proyecto (ni normalize): así el bundle de la función es
+// mínimo y no puede fallar al cargar el módulo. Solo baja el CSV de la pestaña WEB y lo
+// devuelve con cache en el edge. El cliente (src/data/programa.ts) lo normaliza; si esto
+// falla, el cliente cae a gviz directo y luego al snapshot embebido. La web nunca queda vacía.
 
-import { csvToActivities, sheetCsvUrl } from "../src/data/normalize";
+const SHEET_ID = "1lqRVdzMKGCm78bpKpEZTtAnDZuYDlJLu5z89l2zlFjE";
+const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=WEB`;
 
-// Vercel Node function. `res` trae los helpers .status()/.setHeader()/.send() de Vercel.
 export default async function handler(_req: any, res: any) {
   try {
-    const r = await fetch(sheetCsvUrl(), { redirect: "follow" });
+    const r = await fetch(CSV_URL, { redirect: "follow" });
     if (!r.ok) throw new Error(`sheet responded ${r.status}`);
     const csv = await r.text();
-    const activities = csvToActivities(csv);
-    // Cache en el edge: 60s fresco + 5 min sirviendo stale mientras revalida.
+    // 60s fresco + 5 min sirviendo stale mientras revalida.
     res.setHeader("Cache-Control", "public, s-maxage=60, stale-while-revalidate=300");
-    res.setHeader("Content-Type", "application/json; charset=utf-8");
-    res.status(200).send(JSON.stringify({ activities, count: activities.length }));
+    res.setHeader("Content-Type", "text/csv; charset=utf-8");
+    res.status(200).send(csv);
   } catch (e) {
-    // 502 → el cliente cae a su fallback (gviz directo / snapshot).
-    res.status(502).json({ error: "No se pudo leer la planilla WEB", detail: String(e) });
+    res.status(502).send(`error: ${String(e)}`);
   }
 }
