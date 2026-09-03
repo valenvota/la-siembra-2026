@@ -116,12 +116,19 @@ function useBroteMotion(ref: React.RefObject<HTMLElement>) {
   }, [ref]);
 }
 
+/**
+ * Flor (brote) del hero ANTES. APAGADA a pedido del colegio (en mobile quedaba muy cargado).
+ * Para VOLVER a integrarla: poné `true`. El layout, la animación (florecer + rotación por scroll)
+ * y los estilos siguen intactos — es solo este interruptor.
+ */
+const SHOW_HERO_FLOWER = false;
+
 export function HeroAntes() {
   const secRef = useRef<HTMLElement>(null);
   useBroteMotion(secRef);
   return (
     <section id="top" className="hero-antes" ref={secRef}>
-      <BroteHero className="hero-brote-el" />
+      {SHOW_HERO_FLOWER && <BroteHero className="hero-brote-el" />}
       <div className="wrap hero-grid">
         <div className="hero-copy">
           <p className="eyebrow reveal">28 sep — 2 oct 2026</p>

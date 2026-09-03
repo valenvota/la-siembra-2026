@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { useApp, areaById } from "../lib/app";
 import { activityStatus, dayLabel, statusLabel, timeRange } from "../lib/time";
-import type { Area } from "../data/types";
+import { LEVEL_LABEL, type Area } from "../data/types";
 
 export function PlanoVivo() {
   const { data, selectedAreaId, selectArea } = useApp();
@@ -185,11 +185,17 @@ function AreaPanel({ area, onClose }: { area: Area | null | undefined; onClose: 
                 {mode === "durante" ? (
                   <span className={`tag st-${st}`}><span className={`dot${st === "ahora" ? " live-dot" : ""}`} />{statusLabel(st)}</span>
                 ) : (
-                  <span className="panel-day">{dayLabel(a.day)}</span>
+                  a.day && <span className="panel-day">{dayLabel(a.day)}</span>
                 )}
                 <span className="panel-time">{timeRange(a)}</span>
               </div>
               <div className="panel-act-name">{a.name}</div>
+              {(a.level || a.curso) && (
+                <div className="panel-act-meta">
+                  {a.level && <span className="act-level">{LEVEL_LABEL[a.level]}</span>}
+                  {a.curso && <span className="act-curso">{a.curso}</span>}
+                </div>
+              )}
             </div>
           );
         })}

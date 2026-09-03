@@ -40,18 +40,19 @@ export const data: SiembraData = {
   // displayName = reconciliado 2026 (por ahora igual). Coordenadas de hotspot en % sobre la
   // imagen del plano (2399×1433) — CALIBRAR con el asset real antes del sprint de craft.
   areas: [
-    { id: "inicial", referenceNumber: 1, internalName: "Nivel Inicial", displayName: "Nivel Inicial", short: "Inicial", hotspot: { x: 59, y: 34 }, blurb: "Salas de los más chicos: juego, luz y color." },
-    { id: "primaria", referenceNumber: 2, internalName: "Nivel Primario", displayName: "Nivel Primario", short: "Primaria", hotspot: { x: 67, y: 66 } },
-    { id: "secundaria", referenceNumber: 3, internalName: "Nivel Secundario", displayName: "Nivel Secundario", short: "Secundaria", hotspot: { x: 29, y: 60 } },
-    { id: "gimnasio", referenceNumber: 4, internalName: "Gimnasio", displayName: "Gimnasio", hotspot: { x: 56, y: 71 }, headline: true, blurb: "Corazón de los grandes eventos en espacio cubierto." },
-    { id: "cieda", referenceNumber: 5, internalName: "CIEDA y Secretaría", displayName: "CIEDA", hotspot: { x: 78, y: 55 }, blurb: "Ciencia, laboratorio y experiencias." },
-    { id: "idiomas", referenceNumber: 7, internalName: "Dpto. de Idiomas", displayName: "Departamento de Idiomas", short: "Idiomas", hotspot: { x: 54, y: 50 } },
-    { id: "comedor", referenceNumber: 8, internalName: "Comedor", displayName: "Comedor", hotspot: { x: 56, y: 55 } },
-    { id: "vianda", referenceNumber: 14, internalName: "Vianda", displayName: "Vianda", hotspot: { x: 56, y: 64 } },
-    { id: "bosque", referenceNumber: 12, internalName: "Sector Bosque", displayName: "Sector Bosque", short: "Bosque", hotspot: { x: 47, y: 26 }, blurb: "Naturaleza abierta para recorrer." },
-    { id: "piscinas", referenceNumber: 9, internalName: "Sector de Piscinas", displayName: "Sector de Piscinas", short: "Piscinas", hotspot: { x: 72, y: 26 } },
-    { id: "recepcion", referenceNumber: 6, internalName: "Recepción", displayName: "Recepción / Entrada", short: "Entrada", hotspot: { x: 49, y: 54 }, blurb: "Punto de llegada e información." },
-    { id: "escenario", referenceNumber: 20, internalName: "Escenario principal", displayName: "Escenario principal", short: "Escenario", hotspot: { x: 11, y: 54 }, headline: true, blurb: "Música, danza y grandes espectáculos al aire libre." },
+    // Numeración consecutiva 1–11 (opción A: cerrar huecos). Hotspots recalibrados al mapa nuevo
+    // (best-effort; los de Idiomas/Comedor/Vianda son aproximados — confirmar con el equipo).
+    { id: "inicial", referenceNumber: 1, internalName: "Nivel Inicial", displayName: "Edificio nivel inicial", hotspot: { x: 57, y: 33 }, blurb: "Salas de los más chicos: juego, luz y color." },
+    { id: "primaria", referenceNumber: 2, internalName: "Nivel Primario", displayName: "Edificio nivel primario", hotspot: { x: 70, y: 68 } },
+    { id: "secundaria", referenceNumber: 3, internalName: "Nivel Secundario", displayName: "Edificio nivel secundario", hotspot: { x: 27, y: 60 } },
+    { id: "gimnasio", referenceNumber: 4, internalName: "Gimnasio", displayName: "Gimnasio", hotspot: { x: 55, y: 72 }, headline: true, blurb: "Corazón de los grandes eventos en espacio cubierto." },
+    { id: "cieda", referenceNumber: 5, internalName: "CIEDA y Secretaría", displayName: "CIEDA", hotspot: { x: 79, y: 57 }, blurb: "Ciencia, laboratorio y experiencias." },
+    { id: "recepcion", referenceNumber: 6, internalName: "Recepción", displayName: "Recepción / Entrada", short: "Entrada", hotspot: { x: 47, y: 57 }, blurb: "Punto de llegada e información." },
+    { id: "idiomas", referenceNumber: 7, internalName: "Dpto. de Idiomas", displayName: "Departamento de Idiomas", short: "Idiomas", hotspot: { x: 65, y: 24 } },
+    { id: "comedor", referenceNumber: 8, internalName: "Comedor", displayName: "Comedor", hotspot: { x: 56, y: 54 } },
+    { id: "piscinas", referenceNumber: 9, internalName: "Sector de Piscinas", displayName: "Sector de Piscinas", short: "Piscinas", hotspot: { x: 74, y: 27 } },
+    { id: "bosque", referenceNumber: 10, internalName: "Sector Bosque", displayName: "Sector Bosque", short: "Bosque", hotspot: { x: 38, y: 24 }, blurb: "Naturaleza abierta para recorrer." },
+    { id: "vianda", referenceNumber: 11, internalName: "Vianda", displayName: "Vianda", hotspot: { x: 62, y: 62 } },
   ],
 
   // start ausente = recorrido libre sin horario (como Siembra 2025). day = fecha ISO 2026.

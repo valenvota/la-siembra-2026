@@ -48,7 +48,7 @@ export function dayWeekday(day: string): string {
 }
 
 export function timeRange(a: Activity): string {
-  if (!a.start) return "Recorrido libre";
+  if (!a.start) return "Muestra permanente";
   return a.end ? `${a.start}–${a.end}` : a.start;
 }
 

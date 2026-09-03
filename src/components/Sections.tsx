@@ -85,7 +85,7 @@ export function MuestrasLibres() {
     <section id="muestras" className="muestras band">
       <div className="wrap">
         <p className="eyebrow reveal">Toda la semana</p>
-        <h2 className="sec-h reveal" data-delay="1">Muestras de recorrido libre</h2>
+        <h2 className="sec-h reveal" data-delay="1">Muestras permanentes</h2>
         <p className="lead reveal" data-delay="2">
           Instalaciones y muestras abiertas durante toda la Siembra, para recorrer a tu ritmo, sin horario.
         </p>
