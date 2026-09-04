@@ -100,12 +100,20 @@ export function MuestrasLibres() {
   );
 }
 
+/**
+ * Streaming DESHABILITADO hasta resolver cómo se inserta la transmisión. El botón y la imagen
+ * NO redirigen a ningún lado (aparecen "próximamente"). Para habilitarlo: poné `true` — vuelve
+ * a linkear a `data.streaming.url`.
+ */
+const STREAMING_ENABLED = false;
+
 export function Streaming() {
   const { data, mode } = useApp();
   const s = data.streaming;
   const live = mode === "durante";
+  const soon = !STREAMING_ENABLED;
   return (
-    <section id="streaming" className={`streaming${live ? " is-live" : ""}`}>
+    <section id="streaming" className={`streaming${live ? " is-live" : ""}${soon ? " is-soon" : ""}`}>
       <div className="wrap streaming-in">
         <div className="streaming-copy reveal">
           <p className="eyebrow inst">{live ? "Transmisión en vivo" : "Streaming"}</p>
@@ -115,24 +123,43 @@ export function Streaming() {
               ? "Sumate a la transmisión y acompañá La Siembra estés donde estés."
               : "Seguí Siembra en vivo desde donde estés. Transmisión en directo para que ninguna familia se lo pierda."}
           </p>
-          <a className={`btn ${live ? "btn-live" : "btn-inst"}`} href={s.url} target="_blank" rel="noreferrer">
-            {live ? <><span className="dot live-dot" style={{ background: "#fff" }} /> Estamos en vivo</> : "Ver transmisión en vivo"}
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M7 17 17 7M9 7h8v8" /></svg>
-          </a>
+          {soon ? (
+            <>
+              <button className="btn btn-soon" type="button" disabled>Transmisión — próximamente</button>
+              <p className="stream-soon muted">Estamos definiendo cómo transmitir. El enlace se va a habilitar antes del evento.</p>
+            </>
+          ) : (
+            <a className={`btn ${live ? "btn-live" : "btn-inst"}`} href={s.url} target="_blank" rel="noreferrer">
+              {live ? <><span className="dot live-dot" style={{ background: "#fff" }} /> Estamos en vivo</> : "Ver transmisión en vivo"}
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M7 17 17 7M9 7h8v8" /></svg>
+            </a>
+          )}
         </div>
-        <a className="streaming-frame reveal" data-delay="1" href={s.url} target="_blank" rel="noreferrer" aria-label="Ver transmisión en vivo">
-          <img className="frame-poster" src="/assets/media/streaming.jpg" alt="" />
-          <div className={`frame-overlay${live ? " on" : ""}`}>
-            {live ? (
-              <span className="frame-live"><span className="dot live-dot" style={{ background: "#fff" }} /> EN VIVO</span>
-            ) : (
+        {soon ? (
+          <div className="streaming-frame is-soon reveal" data-delay="1" aria-label="Transmisión próximamente">
+            <img className="frame-poster" src="/assets/media/streaming.jpg" alt="" />
+            <div className="frame-overlay">
               <span className="frame-play">
                 <span className="play-btn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z" /></svg></span>
-                Ver transmisión
+                Próximamente
               </span>
-            )}
+            </div>
           </div>
-        </a>
+        ) : (
+          <a className="streaming-frame reveal" data-delay="1" href={s.url} target="_blank" rel="noreferrer" aria-label="Ver transmisión en vivo">
+            <img className="frame-poster" src="/assets/media/streaming.jpg" alt="" />
+            <div className={`frame-overlay${live ? " on" : ""}`}>
+              {live ? (
+                <span className="frame-live"><span className="dot live-dot" style={{ background: "#fff" }} /> EN VIVO</span>
+              ) : (
+                <span className="frame-play">
+                  <span className="play-btn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z" /></svg></span>
+                  Ver transmisión
+                </span>
+              )}
+            </div>
+          </a>
+        )}
       </div>
     </section>
   );
@@ -193,9 +220,9 @@ export function Colaboradores() {
                   </button>
                 )}
                 {partner.videoUrl && (
-                  <a className="cs-chip" href={partner.videoUrl} target="_blank" rel="noreferrer">
+                  <a className="cs-chip" href={partner.videoUrl} target="_blank" rel="noreferrer" aria-label="¡Conocelos! — ver el video en Instagram">
                     <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none" /></svg>
-                    Ver el video en Instagram
+                    ¡Conocelos!
                   </a>
                 )}
               </div>

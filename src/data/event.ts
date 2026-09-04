@@ -124,8 +124,8 @@ export const data: SiembraData = {
       logo: "/assets/media/colpiox-escudo.png",
       // Retrato temporal (placeholder) — reemplazar por la foto real del contingente.
       portrait: "/assets/media/sanpio.jpg",
-      // Video de Colombia en Instagram — PEGAR EL LINK ACÁ y aparece el botón "Ver el video".
-      videoUrl: "",
+      // Video de Colombia en Instagram — habilita el botón "¡Conocelos!" del spotlight.
+      videoUrl: "https://www.instagram.com/reel/Dc36f7UJqVS/",
     },
   ],
 

@@ -376,6 +376,17 @@
   }
 }
 
+/* Streaming DESHABILITADO (STREAMING_ENABLED=false en Sections.tsx): el botón queda gris e
+   inerte y el póster deja de ser un enlace. Al reactivarlo, estas reglas quedan sin efecto. */
+.btn-soon{background:color-mix(in srgb, var(--ink) 14%, transparent); color:var(--ink-soft);
+  border-color:color-mix(in srgb, var(--ink) 18%, transparent); cursor:not-allowed}
+.btn-soon:hover{transform:none}
+.stream-soon{margin:0; font-size:13.5px; max-width:46ch}
+.streaming-frame.is-soon{cursor:default}
+.streaming-frame.is-soon .frame-overlay{background:linear-gradient(to top, rgba(15,17,12,.72), rgba(15,17,12,.44))}
+.streaming-frame.is-soon .play-btn{background:rgba(255,255,255,.55); color:var(--quiet); box-shadow:none}
+.streaming-frame.is-soon:hover .play-btn{transform:none}
+
 /* ---------- CAMPOS DE COLOR: azul suave Hölters para las secciones institucionales
    (transmisión + colaboradores = institucional → azul; verde queda para lo de La Siembra) ---------- */
 .streaming{background:var(--blue-soft)}
