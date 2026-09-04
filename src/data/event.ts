@@ -40,19 +40,16 @@ export const data: SiembraData = {
   // displayName = reconciliado 2026 (por ahora igual). Coordenadas de hotspot en % sobre la
   // imagen del plano (2399×1433) — CALIBRAR con el asset real antes del sprint de craft.
   areas: [
-    // Numeración consecutiva 1–11 (opción A: cerrar huecos). Hotspots recalibrados al mapa nuevo
-    // (best-effort; los de Idiomas/Comedor/Vianda son aproximados — confirmar con el equipo).
-    { id: "inicial", referenceNumber: 1, internalName: "Nivel Inicial", displayName: "Edificio nivel inicial", hotspot: { x: 57, y: 33 }, blurb: "Salas de los más chicos: juego, luz y color." },
-    { id: "primaria", referenceNumber: 2, internalName: "Nivel Primario", displayName: "Edificio nivel primario", hotspot: { x: 70, y: 68 } },
-    { id: "secundaria", referenceNumber: 3, internalName: "Nivel Secundario", displayName: "Edificio nivel secundario", hotspot: { x: 27, y: 60 } },
-    { id: "gimnasio", referenceNumber: 4, internalName: "Gimnasio", displayName: "Gimnasio", hotspot: { x: 55, y: 72 }, headline: true, blurb: "Corazón de los grandes eventos en espacio cubierto." },
-    { id: "cieda", referenceNumber: 5, internalName: "CIEDA y Secretaría", displayName: "CIEDA", hotspot: { x: 79, y: 57 }, blurb: "Ciencia, laboratorio y experiencias." },
-    { id: "recepcion", referenceNumber: 6, internalName: "Recepción", displayName: "Recepción / Entrada", short: "Entrada", hotspot: { x: 47, y: 57 }, blurb: "Punto de llegada e información." },
-    { id: "idiomas", referenceNumber: 7, internalName: "Dpto. de Idiomas", displayName: "Departamento de Idiomas", short: "Idiomas", hotspot: { x: 65, y: 24 } },
-    { id: "comedor", referenceNumber: 8, internalName: "Comedor", displayName: "Comedor", hotspot: { x: 56, y: 54 } },
-    { id: "piscinas", referenceNumber: 9, internalName: "Sector de Piscinas", displayName: "Sector de Piscinas", short: "Piscinas", hotspot: { x: 74, y: 27 } },
-    { id: "bosque", referenceNumber: 10, internalName: "Sector Bosque", displayName: "Sector Bosque", short: "Bosque", hotspot: { x: 38, y: 24 }, blurb: "Naturaleza abierta para recorrer." },
-    { id: "vianda", referenceNumber: 11, internalName: "Vianda", displayName: "Vianda", hotspot: { x: 62, y: 62 } },
+    // Solo zonas con actividades (se sacaron las vacías: Recepción, Piscinas, Bosque).
+    // Numeración consecutiva 1–8. Hotspots sobre el mapa nuevo (Idiomas/Vianda a afinar).
+    { id: "inicial", referenceNumber: 1, internalName: "Nivel Inicial", displayName: "Edificio nivel inicial", hotspot: { x: 62, y: 33 }, blurb: "Salas de los más chicos: juego, luz y color." },
+    { id: "primaria", referenceNumber: 2, internalName: "Nivel Primario", displayName: "Edificio nivel primario", hotspot: { x: 68, y: 74 } },
+    { id: "secundaria", referenceNumber: 3, internalName: "Nivel Secundario", displayName: "Edificio nivel secundario", hotspot: { x: 25, y: 63 } },
+    { id: "gimnasio", referenceNumber: 4, internalName: "Gimnasio", displayName: "Gimnasio", hotspot: { x: 56, y: 72 }, headline: true, blurb: "Corazón de los grandes eventos en espacio cubierto." },
+    { id: "cieda", referenceNumber: 5, internalName: "CIEDA y Secretaría", displayName: "CIEDA", hotspot: { x: 78, y: 57 }, blurb: "Ciencia, laboratorio y experiencias." },
+    { id: "idiomas", referenceNumber: 6, internalName: "Dpto. de Idiomas", displayName: "Departamento de Idiomas", short: "Idiomas", hotspot: { x: 68, y: 18 } },
+    { id: "comedor", referenceNumber: 7, internalName: "Comedor", displayName: "Comedor", hotspot: { x: 56, y: 53 } },
+    { id: "vianda", referenceNumber: 8, internalName: "Vianda", displayName: "Vianda", hotspot: { x: 63, y: 65 } },
   ],
 
   // start ausente = recorrido libre sin horario (como Siembra 2025). day = fecha ISO 2026.
@@ -126,6 +123,8 @@ export const data: SiembraData = {
       logo: "/assets/media/colpiox-escudo.png",
       // Retrato temporal (placeholder) — reemplazar por la foto real del contingente.
       portrait: "/assets/media/sanpio.jpg",
+      // Video de Colombia en Instagram — PEGAR EL LINK ACÁ y aparece el botón "Ver el video".
+      videoUrl: "",
     },
   ],
 

@@ -385,7 +385,7 @@
 .cs-desc{font-size:clamp(18px,2vw,23px); line-height:1.4; color:var(--ink-soft); max-width:46ch}
 .cs-links{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px}
 .cs-chip{display:inline-flex; align-items:center; gap:8px; background:var(--blue); color:#fff; border:0;
-  border-radius:999px; padding:11px 17px; font-weight:700; font-size:14px; cursor:pointer;
+  border-radius:999px; padding:11px 17px; font-weight:700; font-size:14px; cursor:pointer; text-decoration:none;
   transition:transform .16s var(--ease-siembra), box-shadow .16s}
 .cs-chip:hover{transform:translateY(-2px); box-shadow:0 10px 22px -12px var(--blue)}
 .cs-chip.ghost{background:transparent; color:var(--blue-deep); border:1.5px solid var(--blue)}

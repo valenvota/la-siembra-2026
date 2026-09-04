@@ -66,6 +66,8 @@ export interface Partner {
   activityId?: string;
   /** Retrato del contingente (placeholder, se enmascara con la semilla). */
   portrait?: string;
+  /** Link al video (ej. post de Instagram). Si está, aparece el botón "Ver el video". */
+  videoUrl?: string;
 }
 
 /** Streaming: URL/embed externo configurable. No desarrollamos streaming propio. */

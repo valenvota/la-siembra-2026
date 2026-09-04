@@ -32,10 +32,8 @@ export function PlanoVivo() {
     const root = wrapRef.current;
     if (!root) return;
     const markers = root.querySelectorAll<HTMLElement>(".pin");
-    const path = root.querySelector<SVGPathElement>(".route-path");
     if (reduce) {
       gsap.set(markers, { scale: 1, opacity: 1 });
-      if (path) path.style.strokeDashoffset = "0";
       return;
     }
     gsap.set(markers, { scale: 0.2, opacity: 0, transformOrigin: "50% 100%" });
@@ -44,11 +42,6 @@ export function PlanoVivo() {
       if (played) return;
       played = true;
       const tl = gsap.timeline();
-      if (path) {
-        const len = path.getTotalLength();
-        gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
-        tl.to(path, { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut" }, 0.1);
-      }
       tl.to(markers, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)", stagger: 0.04 }, 0.15);
     };
     const io = new IntersectionObserver(
@@ -82,8 +75,6 @@ export function PlanoVivo() {
     selectArea(id === selectedAreaId ? null : id);
   }
 
-  const pt = (a: Area) => ({ x: (a.hotspot.x / 100) * size.w, y: (a.hotspot.y / 100) * size.h });
-  const routeD = seededAreas.map((a, i) => `${i === 0 ? "M" : "L"} ${pt(a).x.toFixed(1)} ${pt(a).y.toFixed(1)}`).join(" ");
   const selected = selectedAreaId ? areaById(selectedAreaId) : null;
 
   return (
@@ -116,9 +107,6 @@ export function PlanoVivo() {
             <div className="plano-canvas" ref={canvasRef}>
               <img className="plano-img" src="/assets/plano-holters.png" alt="Plano ilustrado del campus de Hölters Natur" />
               <div className="plano-tint" aria-hidden="true" />
-              <svg className="plano-overlay" width={size.w} height={size.h} preserveAspectRatio="none" aria-hidden="true">
-                <path className="route-path" d={routeD} fill="none" stroke="var(--blue)" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="1 10" opacity="0.75" />
-              </svg>
               {data.areas.map((a) => {
                 const seeded = activeAreaIds.has(a.id);
                 const isSel = a.id === selectedAreaId;

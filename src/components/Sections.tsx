@@ -60,7 +60,7 @@ export function QueEncontras() {
         <p className="eyebrow reveal">Qué vas a encontrar</p>
         <h2 className="sec-h reveal" data-delay="1">Cinco días, muchas formas de crear.</h2>
         <p className="cat-line serif reveal" data-delay="2">
-          {CATS.map((c) => CATEGORY_LABEL[c]).join(" · ")}
+          {CATS.map((c) => CATEGORY_LABEL[c]).join(" · ")} · Cierre de proyectos pedagógicos
         </p>
         <div className="collage reveal" data-delay="2">
           {CELLS.map((cell, i) => (
@@ -179,15 +179,23 @@ export function Colaboradores() {
             <p className="cs-desc serif">
               Desde {[partner.city, partner.country].filter(Boolean).join(", ")}. {partner.blurb}
             </p>
-            {act && (
+            {(act || partner.videoUrl) && (
               <div className="cs-links">
-                <button className="cs-chip" onClick={goToActivity}>
-                  {dayLabel(act.day)} · {act.start} · {act.name}
-                </button>
-                {area && (
+                {act && (
+                  <button className="cs-chip" onClick={goToActivity}>
+                    {dayLabel(act.day)} · {act.start} · {act.name}
+                  </button>
+                )}
+                {act && area && (
                   <button className="cs-chip ghost" onClick={goToArea}>
                     {area.displayName}
                   </button>
+                )}
+                {partner.videoUrl && (
+                  <a className="cs-chip" href={partner.videoUrl} target="_blank" rel="noreferrer">
+                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none" /></svg>
+                    Ver el video en Instagram
+                  </a>
                 )}
               </div>
             )}
