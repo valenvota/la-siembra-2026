@@ -40,16 +40,17 @@ export const data: SiembraData = {
   // displayName = reconciliado 2026 (por ahora igual). Coordenadas de hotspot en % sobre la
   // imagen del plano (2399×1433) — CALIBRAR con el asset real antes del sprint de craft.
   areas: [
-    // Solo zonas con actividades (se sacaron las vacías: Recepción, Piscinas, Bosque).
-    // Numeración consecutiva 1–8. Hotspots sobre el mapa nuevo (Idiomas/Vianda a afinar).
-    { id: "inicial", referenceNumber: 1, internalName: "Nivel Inicial", displayName: "Edificio nivel inicial", hotspot: { x: 62, y: 33 }, blurb: "Salas de los más chicos: juego, luz y color." },
-    { id: "primaria", referenceNumber: 2, internalName: "Nivel Primario", displayName: "Edificio nivel primario", hotspot: { x: 68, y: 74 } },
-    { id: "secundaria", referenceNumber: 3, internalName: "Nivel Secundario", displayName: "Edificio nivel secundario", hotspot: { x: 25, y: 63 } },
-    { id: "gimnasio", referenceNumber: 4, internalName: "Gimnasio", displayName: "Gimnasio", hotspot: { x: 56, y: 72 }, headline: true, blurb: "Corazón de los grandes eventos en espacio cubierto." },
-    { id: "cieda", referenceNumber: 5, internalName: "CIEDA y Secretaría", displayName: "CIEDA", hotspot: { x: 78, y: 57 }, blurb: "Ciencia, laboratorio y experiencias." },
-    { id: "idiomas", referenceNumber: 6, internalName: "Dpto. de Idiomas", displayName: "Departamento de Idiomas", short: "Idiomas", hotspot: { x: 68, y: 18 } },
-    { id: "comedor", referenceNumber: 7, internalName: "Comedor", displayName: "Comedor", hotspot: { x: 56, y: 53 } },
-    { id: "vianda", referenceNumber: 8, internalName: "Vianda", displayName: "Vianda", hotspot: { x: 63, y: 65 } },
+    // Solo zonas con actividades. Numeración 1–8. Hotspots calibrados con el plano oficial
+    // etiquetado del colegio (ref: Nivel Inicial=1, Primario=2, Secundario=3, Gimnasio=4,
+    // CIEDA=5, Idiomas=7, Comedor=8, Vianda=14 en el plano completo).
+    { id: "inicial", referenceNumber: 1, internalName: "Nivel Inicial", displayName: "Edificio Nivel Inicial", hotspot: { x: 61, y: 31 }, blurb: "Salas de los más chicos: juego, luz y color." },
+    { id: "primaria", referenceNumber: 2, internalName: "Nivel Primario", displayName: "Edificio Nivel Primario", hotspot: { x: 69, y: 68 } },
+    { id: "secundaria", referenceNumber: 3, internalName: "Nivel Secundario", displayName: "Edificio Nivel Secundario", hotspot: { x: 28, y: 60 } },
+    { id: "gimnasio", referenceNumber: 4, internalName: "Gimnasio", displayName: "Gimnasio", hotspot: { x: 57, y: 71 }, headline: true, blurb: "Corazón de los grandes eventos en espacio cubierto." },
+    { id: "cieda", referenceNumber: 5, internalName: "CIEDA y Secretaría", displayName: "CIEDA", hotspot: { x: 80, y: 55 }, blurb: "Ciencia, laboratorio y experiencias." },
+    { id: "idiomas", referenceNumber: 6, internalName: "Dpto. de Idiomas", displayName: "Departamento de Idiomas", short: "Idiomas", hotspot: { x: 54, y: 49 } },
+    { id: "comedor", referenceNumber: 7, internalName: "Comedor", displayName: "Comedor", hotspot: { x: 56, y: 55 } },
+    { id: "vianda", referenceNumber: 8, internalName: "Vianda", displayName: "Vianda", hotspot: { x: 57, y: 65 } },
   ],
 
   // start ausente = recorrido libre sin horario (como Siembra 2025). day = fecha ISO 2026.
