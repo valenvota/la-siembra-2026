@@ -77,7 +77,9 @@ function toTime(raw: string): string | undefined {
   return `${m[1].padStart(2, "0")}:${m[2]}`;
 }
 
-const TRUE_VALUES = new Set(["true", "1", "si", "sí", "x", "verdadero"]);
+// Una fila de la pestaña WEB se MUESTRA por defecto; solo se oculta con un FALSE explícito.
+// (Antes exigía TRUE; pero un checkbox vacío al agregar filas dejaba actividades sin publicar.)
+const HIDDEN_VALUES = new Set(["false", "no", "0", "oculto", "hidden", "n"]);
 
 /**
  * Filas del CSV (con header) → Activity[]. Mapea por NOMBRE de columna (robusto a
@@ -112,7 +114,7 @@ export function rowsToActivities(rows: string[][]): Activity[] {
 
     if (idx.visible >= 0) {
       const v = key(get(r, idx.visible));
-      if (!TRUE_VALUES.has(v)) continue; // no publicable
+      if (HIDDEN_VALUES.has(v)) continue; // oculto explícito (FALSE); vacío o TRUE = visible
     }
 
     // Un día válido es ISO (YYYY-MM-DD). Cualquier otra cosa (vacío o "Toda la semana")
