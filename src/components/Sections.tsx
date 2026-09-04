@@ -126,7 +126,7 @@ export function Streaming() {
           {soon ? (
             <>
               <button className="btn btn-soon" type="button" disabled>Transmisión — próximamente</button>
-              <p className="stream-soon muted">Estamos definiendo cómo transmitir. El enlace se va a habilitar antes del evento.</p>
+              <p className="stream-soon muted">El enlace se va a habilitar antes del evento.</p>
             </>
           ) : (
             <a className={`btn ${live ? "btn-live" : "btn-inst"}`} href={s.url} target="_blank" rel="noreferrer">
