@@ -26,6 +26,9 @@ interface AppCtx {
   /** Día objetivo del programa (deep-link desde el spotlight a una actividad puntual). */
   programDay: string | null;
   setProgramDay: (d: string | null) => void;
+  /** Filtro "Mi curso" — grado/sala elegido por la familia (persistido). null = todos. */
+  cursoFilter: string | null;
+  setCursoFilter: (c: string | null) => void;
 }
 
 const Ctx = createContext<AppCtx | null>(null);
@@ -66,6 +69,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [now, setNow] = useState<Date>(initial.now);
   const [selectedAreaId, setSelectedAreaId] = useState<string | null>(null);
   const [programDay, setProgramDay] = useState<string | null>(null);
+  const [cursoFilter, setCursoFilterState] = useState<string | null>(() => {
+    try { return localStorage.getItem("siembra-curso") || null; } catch { return null; }
+  });
+  const setCursoFilter = (c: string | null) => {
+    setCursoFilterState(c);
+    try { c ? localStorage.setItem("siembra-curso", c) : localStorage.removeItem("siembra-curso"); } catch { /* sin storage */ }
+  };
   const dev = initial.dev;
 
   // Programa en vivo desde la planilla WEB (Google Sheets). Arranca con el snapshot
@@ -106,6 +116,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     selectArea,
     programDay,
     setProgramDay,
+    cursoFilter,
+    setCursoFilter,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

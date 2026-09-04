@@ -192,7 +192,20 @@
 .resv{margin-left:auto; font-size:13px; font-weight:700; color:var(--green-deep); text-decoration:underline}
 
 /* ---------- PROGRAMA ---------- */
-.prog-days{display:flex; gap:8px; flex-wrap:wrap; margin:24px 0 8px}
+.prog-controls{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap; margin:24px 0 8px}
+.prog-days{display:flex; gap:8px; flex-wrap:wrap}
+/* filtro "Mi curso" */
+.prog-curso{display:inline-flex; align-items:center; gap:8px}
+.prog-curso label{font-size:12.5px; font-weight:700; letter-spacing:.02em; color:var(--ink-soft)}
+.prog-curso select{font-family:inherit; font-size:14px; font-weight:600; color:var(--ink); background:var(--paper-2);
+  border:1px solid var(--line); border-radius:999px; padding:9px 14px; cursor:pointer; max-width:min(60vw,240px);
+  transition:border-color .16s, box-shadow .16s}
+.prog-curso select:hover{border-color:var(--blue-200)}
+.prog-curso.on select{border-color:var(--blue); box-shadow:0 0 0 2px var(--blue-soft); color:var(--blue-deep); font-weight:700}
+.prog-curso-clear{display:grid; place-items:center; width:30px; height:30px; flex:none; border-radius:50%;
+  border:1px solid var(--line); background:var(--paper-2); color:var(--quiet); cursor:pointer; font-size:13px}
+.prog-curso-clear:hover{border-color:var(--blue); color:var(--blue-deep)}
+@media (max-width:560px){ .prog-controls{align-items:stretch} .prog-curso{justify-content:space-between} .prog-curso select{flex:1; max-width:none} }
 .day-tab{position:relative; display:flex; flex-direction:column; align-items:center; gap:1px; min-width:62px;
   padding:10px 14px; border:1px solid var(--line); border-radius:14px; background:var(--paper-2); cursor:pointer; transition:all .16s}
 .day-tab:hover{border-color:var(--green)}

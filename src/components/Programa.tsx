@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { useApp, areaById } from "../lib/app";
-import { dayLabel, dayNumber, dayWeekday, duringSort, isFreeRoam } from "../lib/time";
+import { dayNumber, dayWeekday, duringSort, isFreeRoam } from "../lib/time";
+import { cursoOptions, matchesCurso } from "../lib/curso";
 import { ActivityCard } from "./ActivityCard";
 
 function daysBetween(start: string, end: string): string[] {
@@ -18,7 +19,8 @@ function daysBetween(start: string, end: string): string[] {
 }
 
 export function Programa() {
-  const { data, mode, now, selectedAreaId, selectArea, programDay } = useApp();
+  const { data, mode, now, selectedAreaId, selectArea, programDay, cursoFilter, setCursoFilter } = useApp();
+  const cursoGroups = useMemo(() => cursoOptions(data.activities), [data]);
   const days = useMemo(() => daysBetween(data.event.start, data.event.end), [data]);
   const todayIso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   const initialDay = mode === "durante" && days.includes(todayIso) ? todayIso : days[0];
@@ -30,6 +32,7 @@ export function Programa() {
   const list = useMemo(() => {
     let l = data.activities.filter((a) => a.day === day);
     if (selectedAreaId) l = l.filter((a) => a.areaId === selectedAreaId);
+    if (cursoFilter) l = l.filter((a) => matchesCurso(a, cursoFilter));
     l = [...l].sort((a, b) => {
       if (mode === "durante") return duringSort(a, b, now);
       if (isFreeRoam(a) && !isFreeRoam(b)) return 1;
@@ -37,7 +40,7 @@ export function Programa() {
       return (a.start || "").localeCompare(b.start || "");
     });
     return l;
-  }, [data, day, selectedAreaId, mode, now]);
+  }, [data, day, selectedAreaId, cursoFilter, mode, now]);
 
   // Día objetivo explícito (deep-link del spotlight a una actividad puntual).
   useEffect(() => {
@@ -60,7 +63,7 @@ export function Programa() {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const cards = gridRef.current?.querySelectorAll(".act");
     if (cards && cards.length) gsap.fromTo(cards, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out", stagger: 0.05 });
-  }, [day, selectedAreaId, mode]);
+  }, [day, selectedAreaId, cursoFilter, mode]);
 
   return (
     <section id="programa" className={`programa${area ? " is-filtered" : ""}`}>
@@ -71,14 +74,34 @@ export function Programa() {
           Cinco días de teatro, música, ciencia, danza, debates, arte y encuentro. Elegí un día y descubrí qué te espera.
         </p>
 
-        <div className="prog-days reveal" data-delay="2" role="tablist" aria-label="Días">
-          {days.map((d) => (
-            <button key={d} role="tab" aria-selected={d === day} className={`day-tab${d === day ? " on" : ""}`} onClick={() => setDay(d)}>
-              <span className="day-wd">{dayWeekday(d)}</span>
-              <span className="day-nd">{dayNumber(d)}</span>
-              {d === todayIso && mode === "durante" && <span className="day-hoy">hoy</span>}
-            </button>
-          ))}
+        <div className="prog-controls reveal" data-delay="2">
+          <div className="prog-days" role="tablist" aria-label="Días">
+            {days.map((d) => (
+              <button key={d} role="tab" aria-selected={d === day} className={`day-tab${d === day ? " on" : ""}`} onClick={() => setDay(d)}>
+                <span className="day-wd">{dayWeekday(d)}</span>
+                <span className="day-nd">{dayNumber(d)}</span>
+                {d === todayIso && mode === "durante" && <span className="day-hoy">hoy</span>}
+              </button>
+            ))}
+          </div>
+          {cursoGroups.length > 0 && (
+            <div className={`prog-curso${cursoFilter ? " on" : ""}`}>
+              <label htmlFor="curso-sel">Mi curso</label>
+              <select id="curso-sel" value={cursoFilter ?? ""} onChange={(e) => setCursoFilter(e.target.value || null)}>
+                <option value="">Todos los cursos</option>
+                {cursoGroups.map((g) => (
+                  <optgroup key={g.nivel} label={g.label}>
+                    {g.options.map((o) => (
+                      <option key={o.key} value={o.key}>{o.label}</option>
+                    ))}
+                  </optgroup>
+                ))}
+              </select>
+              {cursoFilter && (
+                <button className="prog-curso-clear" onClick={() => setCursoFilter(null)} aria-label="Quitar filtro de curso">✕</button>
+              )}
+            </div>
+          )}
         </div>
 
         {area && (

@@ -1,5 +1,6 @@
 import { useApp, areaById } from "../lib/app";
 import { dayLabel } from "../lib/time";
+import { matchesCurso } from "../lib/curso";
 import { CATEGORY_LABEL, type Category } from "../data/types";
 import { GrowthIcon, Herbario, SemillaClip, Surco } from "./Brote";
 import { ActivityCard } from "./ActivityCard";
@@ -78,8 +79,8 @@ export function QueEncontras() {
 // Muestras de recorrido libre: instalaciones/muestras que suceden toda la semana, sin
 // horario fijo (Activity.allWeek). Van en su propia sección, no en el programa por día.
 export function MuestrasLibres() {
-  const { data } = useApp();
-  const items = data.activities.filter((a) => a.allWeek);
+  const { data, cursoFilter } = useApp();
+  const items = data.activities.filter((a) => a.allWeek && matchesCurso(a, cursoFilter));
   if (!items.length) return null;
   return (
     <section id="muestras" className="muestras band">
