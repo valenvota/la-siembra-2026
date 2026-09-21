@@ -215,8 +215,8 @@ export function AhoraProximo() {
   const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   const list = data.activities
     .filter((a) => a.day === today)
-    .filter((a) => activityStatus(a, now) !== "finalizada")
-    .sort((a, b) => duringSort(a, b, now));
+    .filter((a) => activityStatus(a, now, data.activities) !== "finalizada")
+    .sort((a, b) => duringSort(a, b, now, data.activities));
 
   return (
     <section id="ahora" className="ahora band">

@@ -12,9 +12,9 @@ export function ActivityCard({
   variant?: "full" | "mini";
   showDay?: boolean;
 }) {
-  const { mode, now, selectArea, selectedAreaId } = useApp();
+  const { data, mode, now, selectArea, selectedAreaId } = useApp();
   const area = areaById(activity.areaId);
-  const status = activityStatus(activity, now);
+  const status = activityStatus(activity, now, data.activities);
   const showStatus = mode === "durante";
   const active = selectedAreaId === activity.areaId;
 

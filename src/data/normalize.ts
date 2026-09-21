@@ -93,7 +93,8 @@ export function rowsToActivities(rows: string[][]): Activity[] {
     id: col("id"),
     dia: col("dia"),
     inicio: col("inicio"),
-    fin: col("fin"),
+    // endTime opcional: acepta la columna llamada `fin`, `endtime` o `end` (lo que traiga la planilla).
+    fin: [col("fin"), col("endtime"), col("end")].find((i) => i >= 0) ?? -1,
     actividad: col("actividad"),
     lugar: col("lugar"),
     areaId: col("areaid"),
@@ -133,6 +134,7 @@ export function rowsToActivities(rows: string[][]): Activity[] {
       start: toTime(get(r, idx.inicio)),
       end: toTime(get(r, idx.fin)),
       areaId: get(r, idx.areaId),
+      lugar: get(r, idx.lugar) || undefined,
       level: toLevel(get(r, idx.nivel)),
       curso: get(r, idx.curso) || undefined,
       category: toCategory(get(r, idx.categoria)),

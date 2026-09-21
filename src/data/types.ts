@@ -36,9 +36,13 @@ export interface Activity {
   day: string;
   /** "HH:MM" 24h. Ausente = espacio de recorrido libre, sin horario (como en Siembra 2025). */
   start?: string;
-  /** "HH:MM" 24h, opcional. */
+  /** endTime "HH:MM" 24h, opcional. Hora real de fin cuando la planilla la trae (columna
+   *  `fin` / `endTime`). Si falta, el estado se infiere (ver estimatedEnd en lib/time.ts). */
   end?: string;
   areaId: string;
+  /** Ubicación exacta tal cual la planilla (p.ej. "SUM Primaria", "Hölters Arena"). Se usa,
+   *  si está, para inferir el fin por "próxima actividad en la misma ubicación"; si no, cae al areaId. */
+  lugar?: string;
   level?: Level;
   /** Curso/s de la actividad (p.ej. "6.° Azul", "3.° año", "Salas de 5"). Viene de la planilla. */
   curso?: string;

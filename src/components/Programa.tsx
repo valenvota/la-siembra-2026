@@ -34,7 +34,7 @@ export function Programa() {
     if (selectedAreaId) l = l.filter((a) => a.areaId === selectedAreaId);
     if (cursoFilter) l = l.filter((a) => matchesCurso(a, cursoFilter));
     l = [...l].sort((a, b) => {
-      if (mode === "durante") return duringSort(a, b, now);
+      if (mode === "durante") return duringSort(a, b, now, data.activities);
       if (isFreeRoam(a) && !isFreeRoam(b)) return 1;
       if (!isFreeRoam(a) && isFreeRoam(b)) return -1;
       return (a.start || "").localeCompare(b.start || "");

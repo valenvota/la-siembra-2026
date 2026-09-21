@@ -166,7 +166,7 @@ function AreaPanel({ area, onClose }: { area: Area | null | undefined; onClose: 
       <div className="panel-list">
         {acts.length === 0 && <p className="muted">Sin actividades programadas por ahora.</p>}
         {acts.map((a) => {
-          const st = activityStatus(a, now);
+          const st = activityStatus(a, now, data.activities);
           return (
             <div className={`panel-act st-${st}`} key={a.id}>
               <div className="panel-act-top">
