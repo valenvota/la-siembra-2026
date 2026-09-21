@@ -5,6 +5,44 @@ Bitácora de avances para trabajo multi-máquina (Windows + Mac). Leé esto desp
 
 ---
 
+## Sprint 0.9 — Production Readiness / Seguridad Operativa
+
+### Objetivo
+Que La Siembra funcione durante todo el evento **sin intervención técnica**. No features, no redesign.
+
+### SLICE A — Runtime temporal (P0, hecho)
+- **Reloj REACTIVO** (`src/lib/app.tsx`): `now` se recalcula cada **30s sin refresh** (interval con
+  cleanup). Antes estaba congelado al montar → los estados no cambiaban. Ahora AHORA/PRÓXIMA/
+  FINALIZADA, "Qué pasa ahora", el orden del programa y el borde PRE/DURANTE se actualizan solos.
+- **Timezone del EVENTO** = `America/Argentina/Buenos_Aires`, no la del dispositivo (nuevo
+  `src/lib/clock.ts`). Un visitante en Colombia ve los estados según la hora de Argentina. `?now=`
+  acepta ISO con offset (`2026-09-30T14:09:00-03:00`) o naive (= hora ARG).
+- **Hero DURANTE**: mes **dinámico** (septiembre/octubre), ya no hardcodea "septiembre".
+- Overrides `?modo= / ?now= / ?dev=` solo afectan su sesión/URL; **no persisten** en localStorage/
+  sessionStorage. URL limpia = hora real + ANTES hoy (verificado, sin leak de "miércoles").
+
+### SLICE B/C — Robustez + QA
+- **Sheets**: cadena `/api/programa` (proxy Vercel) → gviz directo → **snapshot embebido real**
+  (event.ts). Una fila malformada NO tumba el dataset (parser tolerante). Hora inválida ("25:99")
+  → sin horario, no rompe.
+- **Castr**: player embebido en DURANTE debajo del hero, iframe **aislado** (si falla, la página
+  sigue). Nunca hay RTMP/stream key en el frontend (solo el player público).
+- **Assets**: mapa degrada bien (los pines funcionan aunque el PNG falle); video/poster fail no rompen.
+- **Security**: sin secretos/keys/passwords en repo, sin `.env` versionado, todo https (sin mixed
+  content). `.gitignore` ahora cubre `.env*`.
+
+### Tests automáticos (nuevos) — `npm test`
+`tests/` con node:test (sin dependencias): **23/23** — timezone, límites PRE/DURANTE, formato
+octubre, `activityStatus` (endTime/inferido/relevo/simultáneas/libre/borde), parser (visible_web,
+fila malformada, campos vacíos, endTime). Tienen valor permanente; correr antes de cada deploy.
+
+### QA de desarrollo
+- `?dev=1` expone `window.__siembra` (reloj/modo) para verificar el tick sin refresh — invisible en producción.
+
+### Estado: **GO WITH KNOWN ISSUES** (pendiente verificación manual en dispositivos físicos + Castr en vivo + click desde Wix). Ver reporte de la sesión.
+
+---
+
 ## 2026-09-01 — Revisión 1 del sitio + modo claro + deploy en Vercel
 
 ### Estado actual
