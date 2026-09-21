@@ -4,4 +4,7 @@ dist
 *.local
 .DS_Store
 
-.vercel
+# secretos / entorno (por si en el futuro se agrega alguno; hoy no se usa ninguno)
+.env
+.env.*
+!.env.example

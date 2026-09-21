@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useApp } from "../lib/app";
 import { duringSort, activityStatus } from "../lib/time";
+import { monthName } from "../lib/clock";
 import { ActivityCard } from "./ActivityCard";
 import { BroteHero, SelloLive } from "./Brote";
 
@@ -188,7 +189,7 @@ export function HeroDurante() {
   const secRef = useRef<HTMLElement>(null);
   useBroteMotion(secRef);
   const DAYS = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-  const label = `${DAYS[now.getDay()]} ${now.getDate()} de septiembre`;
+  const label = `${DAYS[now.getDay()]} ${now.getDate()} de ${monthName(now.getMonth())}`;
   return (
     <section id="top" className="hero-durante" ref={secRef}>
       <BroteHero className="hero-brote-el dur" />

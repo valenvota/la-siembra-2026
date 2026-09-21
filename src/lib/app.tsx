@@ -1,6 +1,7 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { data } from "../data/event";
 import { loadActivities } from "../data/programa";
+import { eventNow, parseNowParam, isWithinEvent } from "./clock";
 
 export type Mode = "antes" | "durante";
 
@@ -33,40 +34,60 @@ interface AppCtx {
 
 const Ctx = createContext<AppCtx | null>(null);
 
-function isoToDate(iso: string, endOfDay = false): Date {
-  const [y, m, d] = iso.split("-").map(Number);
-  return endOfDay ? new Date(y, m - 1, d, 23, 59, 59) : new Date(y, m - 1, d, 0, 0, 0);
-}
-
 /**
  * Producción: el modo se resuelve AUTOMÁTICAMENTE por fecha (durante si hoy cae en el
  * rango del evento; antes en caso contrario). Override configurable para testing con
  * ?modo=antes|durante. ?now=ISO simula el reloj. ?dev=1 muestra el toggle de desarrollo.
  */
-function readParams(): { mode: Mode; now: Date; dev: boolean } {
+interface Params {
+  /** Modo forzado por ?modo=; null = derivado por fecha (producción). */
+  modeOverride: Mode | null;
+  /** Instante base del reloj, en hora de pared de Argentina. */
+  base: Date;
+  /** ?now= presente → reloj CONGELADO en `base` (testing de un momento exacto). */
+  frozen: boolean;
+  /** ?modo=durante sin ?now → reloj SIMULADO que avanza desde `base` (QA del "durante"). */
+  simulated: boolean;
+  dev: boolean;
+}
+
+function readParams(): Params {
   const p = new URLSearchParams(location.search);
-  const modo = p.get("modo");
   const dev = p.get("dev") === "1";
-  const override: Mode | null = modo === "durante" ? "durante" : modo === "antes" ? "antes" : null;
+  const modo = p.get("modo");
+  const modeOverride: Mode | null = modo === "durante" ? "durante" : modo === "antes" ? "antes" : null;
 
-  const nowParam = p.get("now");
-  // Al forzar DURANTE sin reloj explícito, simulamos miércoles 30/09/2026 15:30.
-  const defaultNow = override === "durante" && !nowParam ? new Date(2026, 8, 30, 15, 30, 0) : new Date();
-  const now = nowParam ? new Date(nowParam) : defaultNow;
+  const parsed = p.get("now") ? parseNowParam(p.get("now")!) : null;
+  const frozen = !!parsed;
+  const simulated = !parsed && modeOverride === "durante";
 
-  let mode: Mode;
-  if (override) mode = override;
-  else {
-    const within = now >= isoToDate(data.event.start) && now <= isoToDate(data.event.end, true);
-    mode = within ? "durante" : "antes";
-  }
-  return { mode, now, dev };
+  let base: Date;
+  if (parsed) base = parsed;
+  else if (simulated) base = new Date(2026, 8, 30, 15, 30, 0); // miércoles 30/09 15:30 (avanza)
+  else base = eventNow(); // producción: hora real de Argentina
+
+  return { modeOverride, base, frozen, simulated, dev };
+}
+
+function within(now: Date): boolean {
+  return isWithinEvent(now, data.event.start, data.event.end);
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const initial = useMemo(readParams, []);
-  const [mode, setMode] = useState<Mode>(initial.mode);
-  const [now, setNow] = useState<Date>(initial.now);
+
+  // Reloj REACTIVO del evento (hora de Argentina). Se recalcula cada 30s sin refresh, para
+  // que AHORA/PRÓXIMA/FINALIZADA, "Qué pasa ahora", el orden del programa y el cambio de
+  // día/modo se actualicen solos. `?now=` congela el reloj; `?modo=durante` lo simula avanzando.
+  const baseRef = useRef({ base: initial.base.getTime(), mount: Date.now(), frozen: initial.frozen, simulated: initial.simulated });
+  const readClock = () => {
+    const b = baseRef.current;
+    if (b.frozen) return new Date(b.base);
+    if (b.simulated) return new Date(b.base + (Date.now() - b.mount));
+    return eventNow();
+  };
+  const [now, setNow] = useState<Date>(readClock);
+  const [modeOverride, setModeOverride] = useState<Mode | null>(initial.modeOverride);
   const [selectedAreaId, setSelectedAreaId] = useState<string | null>(null);
   const [programDay, setProgramDay] = useState<string | null>(null);
   const [cursoFilter, setCursoFilterState] = useState<string | null>(() => {
@@ -90,6 +111,25 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
   const liveData = useMemo(() => ({ ...data, activities }), [activities]);
 
+  // Tick del reloj: cada 30s (salvo congelado por ?now=). Cleanup del interval al desmontar.
+  useEffect(() => {
+    if (baseRef.current.frozen) return;
+    const id = setInterval(() => setNow(readClock()), 30_000);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Modo: en producción se deriva por fecha (reactivo, cruza el borde PRE/DURANTE sin refresh);
+  // el override (?modo= o el toggle dev) tiene prioridad.
+  const mode: Mode = modeOverride ?? (within(now) ? "durante" : "antes");
+
+  // Debug de QA — SOLO con ?dev=1 (invisible en producción): expone reloj/modo para verificar
+  // que el tick de 30s actualiza el estado sin refresh.
+  useEffect(() => {
+    if (!dev) return;
+    (window as unknown as { __siembra?: unknown }).__siembra = { now: now.toString(), mode };
+  }, [dev, now, mode]);
+
   // Seleccionar un área (mapa, chips, tarjetas) limpia el día objetivo → el programa
   // hace su auto-salto genérico. El spotlight setea programDay después para un día puntual.
   function selectArea(id: string | null) {
@@ -97,10 +137,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setSelectedAreaId(id);
   }
 
-  // Al cambiar de modo con el toggle, ajustamos el "ahora" simulado.
+  // Toggle de desarrollo (?dev=1): fija el modo y re-basea el reloj para ver un estado poblado.
   function changeMode(m: Mode) {
-    setMode(m);
-    setNow(m === "durante" ? new Date(2026, 8, 30, 15, 30, 0) : new Date());
+    setModeOverride(m);
+    const simulated = m === "durante";
+    baseRef.current = {
+      base: (simulated ? new Date(2026, 8, 30, 15, 30, 0) : eventNow()).getTime(),
+      mount: Date.now(), frozen: false, simulated,
+    };
+    setNow(readClock());
     setSelectedAreaId(null);
     setProgramDay(null);
   }

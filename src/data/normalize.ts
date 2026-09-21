@@ -74,7 +74,9 @@ function toTime(raw: string): string | undefined {
   if (!t) return undefined;
   const m = t.match(/^(\d{1,2}):(\d{2})/);
   if (!m) return undefined;
-  return `${m[1].padStart(2, "0")}:${m[2]}`;
+  const hh = +m[1], mm = +m[2];
+  if (hh > 23 || mm > 59) return undefined; // hora fuera de rango → sin horario (dato malo no rompe)
+  return `${String(hh).padStart(2, "0")}:${m[2]}`;
 }
 
 // Una fila de la pestaña WEB se MUESTRA por defecto; solo se oculta con un FALSE explícito.
