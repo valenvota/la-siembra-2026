@@ -376,6 +376,13 @@
   }
 }
 
+/* Player embebido (Castr) en DURANTE: llena el frame 16:9, sin borde/scroll propios.
+   El frame ya aporta aspect-ratio 16/9 + radio + glow "en vivo"; en mobile pasa a 1 columna
+   (ancho completo) y conserva el 16:9 → sin overflow ni alturas raras. */
+.streaming-player{background:#000}
+.streaming-player iframe{position:absolute; inset:0; width:100%; height:100%; border:0; display:block}
+.stream-live-note{display:inline-flex; align-items:center; gap:9px; margin:2px 0 0; font-weight:700; color:var(--blue-deep); font-size:14.5px}
+
 /* Streaming DESHABILITADO (STREAMING_ENABLED=false en Sections.tsx): el botón queda gris e
    inerte y el póster deja de ser un enlace. Al reactivarlo, estas reglas quedan sin efecto. */
 .btn-soon{background:color-mix(in srgb, var(--ink) 14%, transparent); color:var(--ink-soft);

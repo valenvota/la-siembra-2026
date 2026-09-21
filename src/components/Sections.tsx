@@ -111,7 +111,8 @@ export function Streaming() {
   const { data, mode } = useApp();
   const s = data.streaming;
   const live = mode === "durante";
-  const soon = !STREAMING_ENABLED;
+  const player = live && !!s.embedUrl;          // DURANTE: player de Castr embebido in situ
+  const soon = !player && !STREAMING_ENABLED;   // ANTES / preview: "próximamente"
   return (
     <section id="streaming" className={`streaming${live ? " is-live" : ""}${soon ? " is-soon" : ""}`}>
       <div className="wrap streaming-in">
@@ -120,10 +121,12 @@ export function Streaming() {
           <h2 className="sec-h">{live ? "Estamos en vivo." : "También podés ser parte desde casa."}</h2>
           <p className="lead">
             {live
-              ? "Sumate a la transmisión y acompañá La Siembra estés donde estés."
+              ? "Seguí La Siembra en directo, estés donde estés. La transmisión está acá abajo."
               : "Seguí Siembra en vivo desde donde estés. Transmisión en directo para que ninguna familia se lo pierda."}
           </p>
-          {soon ? (
+          {player ? (
+            <p className="stream-live-note"><span className="dot live-dot" style={{ background: "var(--live)" }} /> En vivo desde Hölters Natur</p>
+          ) : soon ? (
             <>
               <button className="btn btn-soon" type="button" disabled>Transmisión — próximamente</button>
               <p className="stream-soon muted">El enlace se va a habilitar antes del evento.</p>
@@ -135,7 +138,17 @@ export function Streaming() {
             </a>
           )}
         </div>
-        {soon ? (
+        {player ? (
+          <div className="streaming-frame streaming-player is-live reveal" data-delay="1">
+            <iframe
+              src={s.embedUrl}
+              title="Transmisión en vivo de La Siembra 2026"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+              loading="lazy"
+            />
+          </div>
+        ) : soon ? (
           <div className="streaming-frame is-soon reveal" data-delay="1" aria-label="Transmisión próximamente">
             <img className="frame-poster" src="/assets/media/streaming.jpg" alt="" />
             <div className="frame-overlay">

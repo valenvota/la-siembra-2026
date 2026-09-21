@@ -28,13 +28,13 @@ export function App() {
         ) : (
           <>
             <HeroDurante />
-            {/* ROADMAP (no prioritario): en modo Durante, ubicar <Streaming /> (transmisión de
-                YouTube) inmediatamente acá, debajo del hero. Hoy vive más abajo (línea ~33). */}
+            {/* En DURANTE la transmisión (player de Castr) va inmediatamente debajo del hero:
+                es el momento central del evento y el CTA "Ver transmisión" scrollea acá (#streaming). */}
+            <Streaming />
             <AhoraProximo />
             <PlanoVivo />
             <Programa />
             <MuestrasLibres />
-            <Streaming />
             <InfoPractica />
             <Colaboradores />
             <QueEs secondary />

@@ -130,9 +130,11 @@ export const data: SiembraData = {
   ],
 
   streaming: {
-    platformLabel: "YouTube",
-    // URL/embed externo configurable. Reemplazar por el link real cuando se confirme la plataforma.
-    url: "https://www.youtube.com/@holtersnatur",
+    platformLabel: "Castr",
+    // Player público de Castr (solo el reproductor embebible — sin RTMP ni stream key).
+    // En DURANTE se embebe in situ; si Castr aún no transmite, el propio player muestra su estado.
+    embedUrl: "https://player.castr.com/live_b3a3f300b5cf11f184210bb8b05962c3",
+    url: "https://player.castr.com/live_b3a3f300b5cf11f184210bb8b05962c3",
     nextLabel: "Viernes 2 · 18:30",
   },
 

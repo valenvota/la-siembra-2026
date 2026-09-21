@@ -76,6 +76,9 @@ export interface Streaming {
   platformLabel?: string;
   /** URL externa configurable (embed o link). */
   url: string;
+  /** URL del reproductor embebible (iframe). Si está, en modo DURANTE se muestra el player
+   *  in situ debajo del hero. Es solo el player público — nunca RTMP ni stream key. */
+  embedUrl?: string;
   /** Etiqueta de próxima transmisión cuando aún no arrancó. */
   nextLabel?: string;
 }
