@@ -80,7 +80,7 @@ export function PlanoVivo() {
   return (
     <section id="mapa" className="plano">
       <div className="wrap">
-        <p className="eyebrow inst reveal">Hölters Natur · 12 hectáreas</p>
+        <p className="eyebrow inst reveal">Hölters Natur</p>
         <h2 className="sec-h reveal" data-delay="1">Recorré el campus</h2>
         <p className="lead reveal" data-delay="2">
           Un territorio para recorrer. Elegí una zona del campus y descubrí qué está pasando ahí.

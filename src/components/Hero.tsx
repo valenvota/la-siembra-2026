@@ -195,10 +195,10 @@ export function HeroDurante() {
       <BroteHero className="hero-brote-el dur" />
       <div className="wrap">
         <p className="eyebrow live-eyebrow reveal">
-          <SelloLive size={22} /> Estamos en La Siembra
+          <SelloLive size={22} /> Estamos en Siembra 2026
         </p>
         <h1 className="display hero-title dur reveal" data-delay="1">
-          {label}.<br />La Siembra está <span className="seed">sucediendo</span>.
+          {label}.<br />Siembra 2026 está <span className="seed">sucediendo</span>.
         </h1>
         <div className="hero-cta reveal" data-delay="2">
           <a className="btn btn-cream" href="#ahora" onClick={smooth("ahora")}>Ver qué pasa ahora</a>

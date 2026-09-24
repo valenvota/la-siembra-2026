@@ -17,7 +17,7 @@ import type { SiembraData } from "./types";
 
 export const data: SiembraData = {
   event: {
-    title: "La Siembra 2026",
+    title: "Siembra 2026",
     tagline: "Una semana para compartir, crear y encontrarnos.",
     start: "2026-09-28",
     end: "2026-10-02",
@@ -32,7 +32,7 @@ export const data: SiembraData = {
       poster: "/assets/media/hero-poster.jpg",
       imageDesktop: "/assets/media/hero-desktop.jpg",
       imageMobile: "/assets/media/hero-mobile.jpg",
-      alt: "La Siembra en Hölters Natur",
+      alt: "Siembra 2026 en Hölters Natur",
     },
   },
 

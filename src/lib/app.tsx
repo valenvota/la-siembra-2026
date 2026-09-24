@@ -35,9 +35,12 @@ interface AppCtx {
 const Ctx = createContext<AppCtx | null>(null);
 
 /**
- * Producción: el modo se resuelve AUTOMÁTICAMENTE por fecha (durante si hoy cae en el
- * rango del evento; antes en caso contrario). Override configurable para testing con
- * ?modo=antes|durante. ?now=ISO simula el reloj. ?dev=1 muestra el toggle de desarrollo.
+ * Responsabilidades SEPARADAS de los overrides de QA:
+ *  - `?modo=antes|durante` fuerza ÚNICAMENTE la interfaz; la fecha/hora sigue siendo la REAL
+ *    (hora de Argentina). No simula ninguna fecha.
+ *  - `?now=ISO` es el ÚNICO parámetro que simula/congela la fecha y hora (para QA de un momento).
+ *  - URL limpia → 100% automático: hora real, timezone Argentina, modo por fecha.
+ *  - `?dev=1` habilita el toggle/hook de desarrollo.
  */
 interface Params {
   /** Modo forzado por ?modo=; null = derivado por fecha (producción). */
@@ -46,8 +49,6 @@ interface Params {
   base: Date;
   /** ?now= presente → reloj CONGELADO en `base` (testing de un momento exacto). */
   frozen: boolean;
-  /** ?modo=durante sin ?now → reloj SIMULADO que avanza desde `base` (QA del "durante"). */
-  simulated: boolean;
   dev: boolean;
 }
 
@@ -58,15 +59,10 @@ function readParams(): Params {
   const modeOverride: Mode | null = modo === "durante" ? "durante" : modo === "antes" ? "antes" : null;
 
   const parsed = p.get("now") ? parseNowParam(p.get("now")!) : null;
-  const frozen = !!parsed;
-  const simulated = !parsed && modeOverride === "durante";
+  // Sólo ?now= simula/congela la hora. ?modo=durante NO cambia el reloj: usa la hora real.
+  const base = parsed ?? eventNow();
 
-  let base: Date;
-  if (parsed) base = parsed;
-  else if (simulated) base = new Date(2026, 8, 30, 15, 30, 0); // miércoles 30/09 15:30 (avanza)
-  else base = eventNow(); // producción: hora real de Argentina
-
-  return { modeOverride, base, frozen, simulated, dev };
+  return { modeOverride, base, frozen: !!parsed, dev };
 }
 
 function within(now: Date): boolean {
@@ -78,13 +74,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   // Reloj REACTIVO del evento (hora de Argentina). Se recalcula cada 30s sin refresh, para
   // que AHORA/PRÓXIMA/FINALIZADA, "Qué pasa ahora", el orden del programa y el cambio de
-  // día/modo se actualicen solos. `?now=` congela el reloj; `?modo=durante` lo simula avanzando.
-  const baseRef = useRef({ base: initial.base.getTime(), mount: Date.now(), frozen: initial.frozen, simulated: initial.simulated });
+  // día/modo se actualicen solos. `?now=` congela el reloj; en cualquier otro caso es la hora real.
+  const baseRef = useRef({ base: initial.base.getTime(), frozen: initial.frozen });
   const readClock = () => {
     const b = baseRef.current;
-    if (b.frozen) return new Date(b.base);
-    if (b.simulated) return new Date(b.base + (Date.now() - b.mount));
-    return eventNow();
+    return b.frozen ? new Date(b.base) : eventNow();
   };
   const [now, setNow] = useState<Date>(readClock);
   const [modeOverride, setModeOverride] = useState<Mode | null>(initial.modeOverride);
@@ -137,15 +131,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setSelectedAreaId(id);
   }
 
-  // Toggle de desarrollo (?dev=1): fija el modo y re-basea el reloj para ver un estado poblado.
+  // Toggle de desarrollo (?dev=1): fija ÚNICAMENTE el modo visual; el reloj sigue siendo el real.
   function changeMode(m: Mode) {
     setModeOverride(m);
-    const simulated = m === "durante";
-    baseRef.current = {
-      base: (simulated ? new Date(2026, 8, 30, 15, 30, 0) : eventNow()).getTime(),
-      mount: Date.now(), frozen: false, simulated,
-    };
-    setNow(readClock());
     setSelectedAreaId(null);
     setProgramDay(null);
   }

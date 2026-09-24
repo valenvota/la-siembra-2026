@@ -21,7 +21,7 @@ export function QueEs({ secondary = false }: { secondary?: boolean }) {
       {!secondary && <img className="quees-iso" src="/assets/brand/isotipo-cream.png" alt="" aria-hidden="true" />}
       <div className="wrap">
         <div className="quees-head reveal">
-          <p className={`eyebrow${secondary ? "" : " on-green"}`}>Qué es La Siembra</p>
+          <p className={`eyebrow${secondary ? "" : " on-green"}`}>Qué es Siembra 2026</p>
           <h2 className="sec-h quees-title" data-delay="1">
             Una semana para compartir, crear y encontrarnos.
           </h2>
@@ -114,14 +114,14 @@ export function Streaming() {
   const player = live && !!s.embedUrl;          // DURANTE: player de Castr embebido in situ
   const soon = !player && !STREAMING_ENABLED;   // ANTES / preview: "próximamente"
   return (
-    <section id="streaming" className={`streaming${live ? " is-live" : ""}${soon ? " is-soon" : ""}`}>
+    <section id="streaming" className={`streaming${live ? " is-live" : ""}${soon ? " is-soon" : ""}${player ? " is-player" : ""}`}>
       <div className="wrap streaming-in">
         <div className="streaming-copy reveal">
           <p className="eyebrow inst">{live ? "Transmisión en vivo" : "Streaming"}</p>
           <h2 className="sec-h">{live ? "Estamos en vivo." : "También podés ser parte desde casa."}</h2>
           <p className="lead">
             {live
-              ? "Seguí La Siembra en directo, estés donde estés. La transmisión está acá abajo."
+              ? "Seguí Siembra 2026 en directo, estés donde estés."
               : "Seguí Siembra en vivo desde donde estés. Transmisión en directo para que ninguna familia se lo pierda."}
           </p>
           {player ? (
@@ -142,7 +142,7 @@ export function Streaming() {
           <div className="streaming-frame streaming-player is-live reveal" data-delay="1">
             <iframe
               src={s.embedUrl}
-              title="Transmisión en vivo de La Siembra 2026"
+              title="Transmisión en vivo de Siembra 2026"
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
               loading="lazy"

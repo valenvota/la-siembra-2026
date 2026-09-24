@@ -103,7 +103,7 @@
 .hero-brote-el .semilla-petals circle{fill:color-mix(in srgb,var(--blue-200) 46%,var(--blue))}
 .hero-brote-el .semilla-core line{stroke:var(--blue-darker); opacity:.6}
 /* DURANTE: suelo azul profundo (navy), flor encendida en azul pálido — otra temperatura */
-.hero-durante{background:var(--blue-ground); color:var(--cream)}
+.hero-durante{background:var(--blue); color:var(--cream)}
 .hero-durante .hero-title.dur{color:var(--cream)}
 .hero-durante .hero-title.dur .seed{color:var(--yellow)}
 .hero-durante .live-eyebrow{color:color-mix(in srgb,var(--live) 55%,var(--cream))}
@@ -382,6 +382,9 @@
 .streaming-player{background:#000}
 .streaming-player iframe{position:absolute; inset:0; width:100%; height:100%; border:0; display:block}
 .stream-live-note{display:inline-flex; align-items:center; gap:9px; margin:2px 0 0; font-weight:700; color:var(--blue-deep); font-size:14.5px}
+/* DURANTE con player: una sola columna → el player de Castr ocupa TODO el ancho seguro
+   de la sección (no queda como video angosto en una columna). Mantiene 16:9 y responsive. */
+.streaming.is-player .streaming-in{grid-template-columns:1fr; align-items:stretch}
 
 /* Streaming DESHABILITADO (STREAMING_ENABLED=false en Sections.tsx): el botón queda gris e
    inerte y el póster deja de ser un enlace. Al reactivarlo, estas reglas quedan sin efecto. */
