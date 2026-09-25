@@ -384,7 +384,12 @@
 .stream-live-note{display:inline-flex; align-items:center; gap:9px; margin:2px 0 0; font-weight:700; color:var(--blue-deep); font-size:14.5px}
 /* DURANTE con player: una sola columna → el player de Castr ocupa TODO el ancho seguro
    de la sección (no queda como video angosto en una columna). Mantiene 16:9 y responsive. */
-.streaming.is-player .streaming-in{grid-template-columns:1fr; align-items:stretch}
+/* DURANTE con player: una sola columna → el player ocupa TODO el ancho seguro del contenido.
+   NO usar align-items:stretch: en Safari estira el frame (que tiene aspect-ratio y un iframe
+   position:absolute sin contenido en flujo) y le colapsa la altura → el player desaparecía.
+   align-self:start deja que mande el aspect-ratio 16:9 (robusto en todos los browsers). */
+.streaming.is-player .streaming-in{grid-template-columns:1fr}
+.streaming.is-player .streaming-frame{align-self:start; width:100%}
 
 /* Streaming DESHABILITADO (STREAMING_ENABLED=false en Sections.tsx): el botón queda gris e
    inerte y el póster deja de ser un enlace. Al reactivarlo, estas reglas quedan sin efecto. */
